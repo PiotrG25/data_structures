@@ -17,7 +17,16 @@ int main() {
 
 
 
+	// heap test
 
+	int* arr = new int[30];
+	for (int i = 0; i < 30; ++i) arr[i] = i + 1;
+
+	BinaryHeap h = BinaryHeap(arr, 30);
+
+	cout << h.getSize() << endl;
+
+	h.print();
 
 
 

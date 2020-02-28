@@ -3,10 +3,13 @@
 #define BINARY_HEAP_H
 
 #include <iostream>
+#include <iomanip>
+
+#include "Exceptions.h"
 
 class BinaryHeap {
 
-	int* arr;
+	int* arr; // not resized
 	int length; // maxium ammount of elements in array
 	int size; // number of inserted elements
 
@@ -15,7 +18,8 @@ public:
 	BinaryHeap(int* arr, int size);
 
 
-	// adds element to heap
+	// adds element to the heap
+	// throws OUT_OF_SPACE exception if next inserted element would exceed bound of the array
 	void add(int element);
 
 	
@@ -23,6 +27,9 @@ public:
 	// throws NOT_FOUND exception if element is not in the heap
 	void remove(int element);
 
+
+	// returns true if element is in the heap
+	bool search(int element);
 
 
 	// returns parent index
@@ -33,6 +40,13 @@ public:
 
 	// returns right child index
 	int getRightChild(int index);
+
+	// returns size
+	int getSize();
+
+
+	// prints heap shaped like a tree
+	void print();
 };
 
 #endif
