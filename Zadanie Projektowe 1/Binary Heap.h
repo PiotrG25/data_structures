@@ -16,6 +16,7 @@ class BinaryHeap {
 public:
 
 	BinaryHeap(int* arr, int size);
+	~BinaryHeap();
 
 
 	// adds element to the heap
@@ -32,6 +33,12 @@ public:
 	bool search(int element);
 
 
+	// restores heap invariant by bubbling up starting from designated index
+	void bubbleUp(int index);
+
+	// restores heap invariant by bubbling down starting from designated index
+	void bubbleDown(int index);
+
 	// returns parent index
 	int getParent(int index);
 
@@ -43,6 +50,10 @@ public:
 
 	// returns size
 	int getSize();
+
+	// returns element at index 0
+	// throws EMPTY exception if heap is empty
+	int peek();
 
 
 	// prints heap shaped like a tree

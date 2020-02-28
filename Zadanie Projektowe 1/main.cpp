@@ -17,6 +17,12 @@ int main() {
 
 
 
+
+
+
+	
+	/*
+
 	// heap test
 
 	int* arr = new int[30];
@@ -25,10 +31,41 @@ int main() {
 	BinaryHeap h = BinaryHeap(arr, 30);
 
 	cout << h.getSize() << endl;
+	h.print();
 
+	h.remove(20);
+	h.print();
+	h.remove(28);
+	h.print();
+
+	h.add(999);
+	h.print();
+	
+	h.remove(4);
+	h.print();
+	
+	h.remove(999);
 	h.print();
 
 
+	try {
+		while (true) {
+			h.remove(h.peek());
+		}
+	}
+	catch (const int e) {
+		cout << ":(" << endl;
+	}
+
+	h.print();
+
+	for (int i = 0; i < 10; ++i) {
+		h.add(i);
+		h.print();
+		cout << endl;
+	}
+
+	*/
 
 
 	/*
