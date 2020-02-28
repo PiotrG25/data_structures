@@ -1,0 +1,7 @@
+.vs/**
+Debug/**
+*.sln
+Zadanie Projektowe 1/Debug/**
+Zadanie Projektowe 1/*.filters
+Zadanie Projektowe 1/*.user
+Zadanie Projektowe 1/*.vcxproj
