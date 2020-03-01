@@ -5,8 +5,13 @@
 #include "Array.h"
 #include "Doubly Linked List.h"
 #include "Binary Heap.h"
+#include "Binary Search Tree.h"
+#include "Red Black Tree.h"
+#include "AVL Tree.h"
 
 using namespace std;
+
+
 
 int main() {
 
@@ -16,9 +21,35 @@ int main() {
 	//cout << (t2 - t1) / (CLOCKS_PER_SEC) * 1000 << endl; // ms
 
 
+	int* arr = new int[10];
+	for (int i = 0; i < 10; ++i) arr[i] = rand() % 10;
 
+	BinarySearchTree* t = new BinarySearchTree(arr, 10);
+	t->print();
+	cout << endl;
 
+	t->remove(0);
+	t->print();
+	cout << endl;
 
+	t->remove(4);
+	t->print();
+	cout << endl;
+
+	for (int i = 0; i < 10; ++i) {
+		try {
+			t->remove(i);
+		}
+		catch (const int e) {
+
+		}
+	}
+
+	t->print();
+
+	t->add(44);
+	t->print();
+	
 
 	
 	/*
