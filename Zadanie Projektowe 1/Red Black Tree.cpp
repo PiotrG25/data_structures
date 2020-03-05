@@ -81,12 +81,36 @@ void RedBlackTree::restoreTreeInvariant(Node* n) {
 }
 
 
-void RedBlackTree::rotateRight(Node* n) {
+RedBlackTree::Node* RedBlackTree::rotateRight(Node* n) {
+	Node* parent = n->parent;
 
+	parent->left = n->right;
+	if (n->right != NULL) n->right->parent = parent;
+
+	n->right = parent;
+	parent->parent = n;
+
+	return n;
 }
-void RedBlackTree::rotateLeft(Node* n);
+RedBlackTree::Node* RedBlackTree::rotateLeft(Node* n) {
+	Node* parent = n->parent;
 
-void RedBlackTree::leftleftCase(Node* n);
-void RedBlackTree::leftRightCase(Node* n);
-void RedBlackTree::rightLeftCase(Node* n);
-void RedBlackTree::rightRightCase(Node* n);
+	parent->right = n->left;
+	if (n->left != NULL) n->left->parent = parent;
+
+	n->left = parent;
+	parent->parent = n;
+
+	return n;
+}
+
+RedBlackTree::Node* RedBlackTree::leftleftCase(Node* n) {
+	rotateRight(n->parent);
+
+	bool t = n->parent->red;
+	n->parent->red = n->parent->right->red;
+	n->parent->right->red = t;
+}
+RedBlackTree::Node* RedBlackTree::leftRightCase(Node* n);
+RedBlackTree::Node* RedBlackTree::rightLeftCase(Node* n);
+RedBlackTree::Node* RedBlackTree::rightRightCase(Node* n);

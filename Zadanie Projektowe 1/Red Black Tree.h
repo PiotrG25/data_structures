@@ -20,13 +20,13 @@ class RedBlackTree {
 
 	void restoreTreeInvariant(Node* n);
 
-	void rotateRight(Node* n);
-	void rotateLeft(Node* n);
+	Node* rotateRight(Node* n);
+	Node* rotateLeft(Node* n);
 
-	void leftleftCase(Node* n);
-	void leftRightCase(Node* n);
-	void rightLeftCase(Node* n);
-	void rightRightCase(Node* n);
+	Node* leftleftCase(Node* n);
+	Node* leftRightCase(Node* n);
+	Node* rightLeftCase(Node* n);
+	Node* rightRightCase(Node* n);
 
 public:
 
