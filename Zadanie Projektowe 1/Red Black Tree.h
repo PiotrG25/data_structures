@@ -10,17 +10,23 @@ class RedBlackTree {
 	struct Node {
 		int value;
 		bool red; // true if red, false if black
-		Node *left, *right;
+		Node *left, *right, *parent;
 
-		Node(int value, bool red) {
-			this->value = value;
-			this->red = red;
-			left = right = NULL;
-		}
+		Node(int value, bool red);
 	};
 
 	Node* root;
 	int size;
+
+	void restoreTreeInvariant(Node* n);
+
+	void rotateRight(Node* n);
+	void rotateLeft(Node* n);
+
+	void leftleftCase(Node* n);
+	void leftRightCase(Node* n);
+	void rightLeftCase(Node* n);
+	void rightRightCase(Node* n);
 
 public:
 

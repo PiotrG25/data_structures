@@ -21,6 +21,27 @@ int main() {
 	//cout << (t2 - t1) / (CLOCKS_PER_SEC) * 1000 << endl; // ms
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/*
+
+	// BST test
+
 	int* arr = new int[10];
 	for (int i = 0; i < 10; ++i) arr[i] = rand() % 10;
 
@@ -50,7 +71,7 @@ int main() {
 	t->add(44);
 	t->print();
 	
-
+	*/
 	
 	/*
 
