@@ -71,6 +71,42 @@ void RedBlackTree::restoreTreeInvariant(Node* n) {
 
 		if (uncle == NULL || uncle->red == false) {
 
+			Node* grandgrandparent = n->parent->parent->parent, *result;
+
+			if (n->value < n->parent->parent->value) {
+				if (n->value < n->parent->value) {
+					result = leftleftCase(n);
+				}
+				else {
+					result = leftRightCase(n);
+				}
+			}
+			else {
+				if (n->value < n->parent->value) {
+					result = rightLeftCase(n);
+				}
+				else {
+					result = rightRightCase(n);
+				}
+			}
+
+
+			if (grandgrandparent == NULL) {
+				root = result;
+				result->parent = NULL;
+			}
+			else {
+				if (result->value < grandgrandparent->value) {
+					grandgrandparent->left = result;
+					result->parent = grandgrandparent;
+				}
+				else {
+					grandgrandparent->right = result;
+					result->parent = grandgrandparent;
+				}
+			}
+
+			restoreTreeInvariant(result);
 		}
 		else {
 			uncle->red = n->parent->red = false;
@@ -81,7 +117,7 @@ void RedBlackTree::restoreTreeInvariant(Node* n) {
 }
 
 
-RedBlackTree::Node* RedBlackTree::rotateRight(Node* n) {
+void RedBlackTree::rotateRight(Node* n) {
 	Node* parent = n->parent;
 
 	parent->left = n->right;
@@ -89,10 +125,8 @@ RedBlackTree::Node* RedBlackTree::rotateRight(Node* n) {
 
 	n->right = parent;
 	parent->parent = n;
-
-	return n;
 }
-RedBlackTree::Node* RedBlackTree::rotateLeft(Node* n) {
+void RedBlackTree::rotateLeft(Node* n) {
 	Node* parent = n->parent;
 
 	parent->right = n->left;
@@ -100,8 +134,6 @@ RedBlackTree::Node* RedBlackTree::rotateLeft(Node* n) {
 
 	n->left = parent;
 	parent->parent = n;
-
-	return n;
 }
 
 RedBlackTree::Node* RedBlackTree::leftleftCase(Node* n) {
@@ -110,7 +142,71 @@ RedBlackTree::Node* RedBlackTree::leftleftCase(Node* n) {
 	bool t = n->parent->red;
 	n->parent->red = n->parent->right->red;
 	n->parent->right->red = t;
+
+	return n->parent;
 }
-RedBlackTree::Node* RedBlackTree::leftRightCase(Node* n);
-RedBlackTree::Node* RedBlackTree::rightLeftCase(Node* n);
-RedBlackTree::Node* RedBlackTree::rightRightCase(Node* n);
+RedBlackTree::Node* RedBlackTree::leftRightCase(Node* n) {
+	Node* grandparent = n->parent->parent;
+	rotateLeft(n);
+
+	n->parent = grandparent;
+	grandparent->left = n;
+
+	rotateRight(n);
+
+	bool t = n->red;
+	n->red = n->right->red;
+	n->right->red = t;
+
+	return n;
+}
+RedBlackTree::Node* RedBlackTree::rightLeftCase(Node* n) {
+	Node* grandparent = n->parent->parent;
+	rotateRight(n);
+
+	n->parent = grandparent;
+	grandparent->right = n;
+
+	rotateLeft(n);
+
+	bool t = n->red;
+	n->red = n->left->red;
+	n->left->red = t;
+
+	return n;
+}
+RedBlackTree::Node* RedBlackTree::rightRightCase(Node* n) {
+	rotateLeft(n->parent);
+
+	bool t = n->parent->red;
+	n->parent->red = n->parent->left->red;
+	n->parent->left->red = t;
+
+	return n->parent;
+}
+
+
+void RedBlackTree::print() {
+	if (root == NULL) std::cout << "NULL" << std::endl;
+	else printNode(root);
+}
+
+void RedBlackTree::printNode(Node* n) {
+	std::cout << n->value << ' ';
+	if (n->red) std::cout << 'R' << ' ';
+	else std::cout << 'B' << ' ';
+
+	if (n->parent == NULL) std::cout << "NULL" << ' ';
+	else std::cout << n->parent->value << ' ';
+
+	if (n->left == NULL) std::cout << "NULL" << ' ';
+	else std::cout << n->left->value << ' ';
+
+	if (n->right == NULL) std::cout << "NULL" << std::endl;
+	else std::cout << n->right->value << std::endl;
+
+
+	if (n->left != NULL) printNode(n->left);
+	if (n->right != NULL) printNode(n->right);
+}
+

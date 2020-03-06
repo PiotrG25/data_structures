@@ -20,8 +20,8 @@ class RedBlackTree {
 
 	void restoreTreeInvariant(Node* n);
 
-	Node* rotateRight(Node* n);
-	Node* rotateLeft(Node* n);
+	void rotateRight(Node* n);
+	void rotateLeft(Node* n);
 
 	Node* leftleftCase(Node* n);
 	Node* leftRightCase(Node* n);
@@ -41,6 +41,7 @@ public:
 
 
 	void print();
+	void printNode(Node* n);
 };
 
 #endif

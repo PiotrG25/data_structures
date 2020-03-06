@@ -20,8 +20,17 @@ int main() {
 	double t1, t2; // Zmienne do mierzenia czasu
 	//cout << (t2 - t1) / (CLOCKS_PER_SEC) * 1000 << endl; // ms
 
+	int arr[] = { 1 };
+	int n = 0;
 
+	RedBlackTree rbt = RedBlackTree(arr, n);
 
+	int a;
+	do {
+		rbt.print();
+		cin >> a;
+		rbt.add(a);
+	} while (a != 0);
 
 
 
