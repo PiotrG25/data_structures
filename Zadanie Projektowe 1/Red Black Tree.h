@@ -28,7 +28,15 @@ class RedBlackTree {
 	Node* rightLeftCase(Node* n);
 	Node* rightRightCase(Node* n);
 	
-	void deleteNode(Node* n);
+	void deleteNode(Node* n); // delete subtree
+
+
+	void removeCase1(Node* n);
+	void removeCase2(Node* n);
+	void removeCase3(Node* n);
+	void removeCase4(Node* n);
+
+	void traverseBlackToTheTop(Node* n, bool fromLeft);
 
 public:
 
@@ -38,6 +46,9 @@ public:
 	void add(int element);
 
 	void remove(int element);
+
+	
+
 
 	bool search(int element);
 
