@@ -13,6 +13,17 @@ RedBlackTree::RedBlackTree(int * arr, int size) {
 }
 
 RedBlackTree::~RedBlackTree() {
+	if (root != NULL) deleteNode(root);
+}
+
+void RedBlackTree::deleteNode(Node* n) {
+	if (n->left != NULL) deleteNode(n->left);
+	if (n->right != NULL) deleteNode(n->right);
+	delete n;
+}
+
+
+void RedBlackTree::remove(int element) {
 
 }
 

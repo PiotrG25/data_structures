@@ -27,6 +27,8 @@ class RedBlackTree {
 	Node* leftRightCase(Node* n);
 	Node* rightLeftCase(Node* n);
 	Node* rightRightCase(Node* n);
+	
+	void deleteNode(Node* n);
 
 public:
 
