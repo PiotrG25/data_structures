@@ -167,7 +167,7 @@ void RedBlackTree::add(int element) {
 	while (true) {
 		if (element < n->value) {
 			if (n->left == NULL) {
-				n->left = new Node(element, true);
+				n->left = new Node(element, true); // new red Node
 				n->left->parent = n;
 				n = n->left;
 				break;
@@ -176,7 +176,7 @@ void RedBlackTree::add(int element) {
 		}
 		else {
 			if (n->right == NULL) {
-				n->right = new Node(element, true);
+				n->right = new Node(element, true); // new red Node
 				n->right->parent = n;
 				n = n->right;
 				break;
@@ -186,71 +186,74 @@ void RedBlackTree::add(int element) {
 	}
 	++size;
 
-	restoreTreeInvariant(n);
+	givenRedRestoreTreeInvariant(n);
 }
 
-void RedBlackTree::restoreTreeInvariant(Node* n) {
+void RedBlackTree::givenRedRestoreTreeInvariant(Node* n) {
 	if (n == root) {
 		n->red = false;
 		return;
 	}
 
-	if (n->parent->red) {
-		Node* uncle;
+	if (!n->parent->red) return;
 
+
+	// getting uncle of Node n
+	Node* uncle;
+	if (n->value < n->parent->parent->value) {
+		uncle = n->parent->parent->right;
+	}
+	else {
+		uncle = n->parent->parent->left;
+	}
+
+
+	// because parent is black action depends on uncle
+	if (uncle == NULL || uncle->red == false) {
+		Node* greatgrandparent = n->parent->parent->parent, *result;
+
+
+		// deciding in which case is n
 		if (n->value < n->parent->parent->value) {
-			// n is to the left of grandparent
-			uncle = n->parent->parent->right;
-		}
-		else {
-			// n is to the right of grandparent
-			uncle = n->parent->parent->left;
-		}
-
-		if (uncle == NULL || uncle->red == false) {
-
-			Node* grandgrandparent = n->parent->parent->parent, *result;
-
-			if (n->value < n->parent->parent->value) {
-				if (n->value < n->parent->value) {
-					result = leftleftCase(n);
-				}
-				else {
-					result = leftRightCase(n);
-				}
+			if (n->value < n->parent->value) {
+				result = leftleftCase(n);
 			}
 			else {
-				if (n->value < n->parent->value) {
-					result = rightLeftCase(n);
-				}
-				else {
-					result = rightRightCase(n);
-				}
+				result = leftRightCase(n);
 			}
-
-
-			if (grandgrandparent == NULL) {
-				root = result;
-				result->parent = NULL;
-			}
-			else {
-				if (result->value < grandgrandparent->value) {
-					grandgrandparent->left = result;
-					result->parent = grandgrandparent;
-				}
-				else {
-					grandgrandparent->right = result;
-					result->parent = grandgrandparent;
-				}
-			}
-
-			restoreTreeInvariant(result);
 		}
 		else {
-			uncle->red = n->parent->red = false;
-			n->parent->parent->red = true;
-			restoreTreeInvariant(n->parent->parent);
+			if (n->value < n->parent->value) {
+				result = rightLeftCase(n);
+			}
+			else {
+				result = rightRightCase(n);
+			}
 		}
+
+
+		// connecting hihgest node to the grandparent
+		if (greatgrandparent == NULL) {
+			root = result;
+			result->parent = NULL;
+		}
+		else {
+			if (result->value < greatgrandparent->value) {
+				greatgrandparent->left = result;
+				result->parent = greatgrandparent;
+			}
+			else {
+				greatgrandparent->right = result;
+				result->parent = greatgrandparent;
+			}
+		}
+
+		givenRedRestoreTreeInvariant(result);
+	}
+	else {
+		uncle->red = n->parent->red = false;
+		n->parent->parent->red = true;
+		givenRedRestoreTreeInvariant(n->parent->parent);
 	}
 }
 

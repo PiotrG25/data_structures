@@ -18,16 +18,28 @@ class RedBlackTree {
 	Node* root;
 	int size;
 
-	void restoreTreeInvariant(Node* n);
+	void givenRedRestoreTreeInvariant(Node* n);
 
+	// places n in place of its parent and:
+
+	// replaces n's right subtree with parent and
+	// parent's left subtree with n's right subtree
 	void rotateRight(Node* n);
+	// replaces n's left subtree with parent and
+	// parends's right subtree with n's left subtree
 	void rotateLeft(Node* n);
 
+
+	// set of cases depending on possition of Node n
+	// used only when n is red
+	// n's parent is red
+	// n's uncle is black
 	Node* leftleftCase(Node* n);
 	Node* leftRightCase(Node* n);
 	Node* rightLeftCase(Node* n);
 	Node* rightRightCase(Node* n);
 	
+
 	void deleteNode(Node* n); // delete subtree
 
 
