@@ -44,80 +44,12 @@ void RedBlackTree::remove(int element) {
 }
 
 void RedBlackTree::removeCase1(Node* n) {
-	if (n->red) {
-		if (n->value < n->parent->value) {
-			n->parent->left = NULL;
-		}
-		else {
-			n->parent->right = NULL;
-		}
-		delete n;
-	}
-	else {
-		if (n->parent == NULL) {
-			root = NULL;
-			delete n;
-			return;
-		}
-
-		if (n->parent->red) {
-			if (n->value < n->parent->value) {
-				rotateLeft(n->parent->right);
-
-				n->parent->red = false;
-				if(n->parent->parent->right != NULL) n->parent->parent->right->red = false;
-				n->parent->parent->red = true;
-				
-				if (n->parent->parent == root) root->red = false;
-				n->parent->left = NULL;
-				delete n;
-			}
-			else {
-				rotateRight(n->parent->left);
-
-				n->parent->red = false;
-				if (n->parent->parent->left != NULL) n->parent->parent->left->red = false;
-				n->parent->parent->red = true;
-
-				if (n->parent->parent == root) root->red = false;
-				n->parent->right = NULL;
-				delete n;
-			}
-		}
-		else {
-
-		}
-	}
 }
  // n->left == NULL
 void RedBlackTree::removeCase2(Node* n) {
-	n->right->parent = n->parent;
-
-	if (n->value < n->parent->value){
-		n->parent->left = n->right;
-		if (!n->red) traverseBlackToTheTop(n->parent, true);
-	}
-	else {
-		n->parent->right = n->right;
-		if (!n->red) traverseBlackToTheTop(n->parent, false);
-	}
-
-	delete n;
 }
  // n->right == NULL
 void RedBlackTree::removeCase3(Node* n) {
-	n->left->parent = n->parent;
-
-	if (n->value < n->parent->value) {
-		n->parent->left = n->left;
-		if (!n->red) traverseBlackToTheTop(n->parent, true);
-	}
-	else {
-		n->parent->right = n->left;
-		if (!n->red) traverseBlackToTheTop(n->parent, false);
-	}
-
-	delete n;
 }
 void RedBlackTree::removeCase4(Node* n) {
 	Node* m = n->left;
@@ -128,30 +60,6 @@ void RedBlackTree::removeCase4(Node* n) {
 	m->value = t;
 
 	removeCase3(m);
-}
-
-void RedBlackTree::traverseBlackToTheTop(Node* n, bool fromLeft) {
-	if (n == root) return;
-	if (n->red) {
-		n->red = false;
-		return;
-	}
-
-	if (fromLeft) {
-		if (n->right->red) {
-		}
-		else {
-		}
-	}
-	else {
-		if (n->left->red) {
-		}
-		else {
-		}
-	}
-
-	if (n->value < n->parent->value) traverseBlackToTheTop(n->parent, true);
-	else traverseBlackToTheTop(n->parent, false);
 }
 
 

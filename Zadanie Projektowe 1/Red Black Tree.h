@@ -18,6 +18,9 @@ class RedBlackTree {
 	Node* root;
 	int size;
 
+	void deleteNode(Node* n); // delete subtree
+
+
 	void givenRedRestoreTreeInvariant(Node* n);
 
 	// places n in place of its parent and:
@@ -38,17 +41,12 @@ class RedBlackTree {
 	Node* leftRightCase(Node* n);
 	Node* rightLeftCase(Node* n);
 	Node* rightRightCase(Node* n);
-	
-
-	void deleteNode(Node* n); // delete subtree
 
 
 	void removeCase1(Node* n);
 	void removeCase2(Node* n);
 	void removeCase3(Node* n);
 	void removeCase4(Node* n);
-
-	void traverseBlackToTheTop(Node* n, bool fromLeft);
 
 public:
 
