@@ -44,12 +44,59 @@ void RedBlackTree::remove(int element) {
 }
 
 void RedBlackTree::removeCase1(Node* n) {
+	if (n->red) {
+		if (n->value < n->parent->value) n->parent->left = NULL;
+		else n->parent->right = NULL;
+
+		delete n;
+		return;
+	}
 }
  // n->left == NULL
 void RedBlackTree::removeCase2(Node* n) {
+	if (n == root) {
+		root = n->right;
+		root->parent = NULL;
+		root->red = false;
+
+		delete n;
+		return;
+	}
+
+	if (n->red || n->right->red) {
+		if (n->value < n->parent->value) n->parent->left = n->right;
+		else n->parent->right = n->right;
+
+		n->right->parent = n->parent;
+
+		n->right->red = false;
+		
+		delete n;
+		return;
+	}
 }
  // n->right == NULL
 void RedBlackTree::removeCase3(Node* n) {
+	if (n == root) {
+		root = n->left;
+		root->parent = NULL;
+		root->red = false;
+
+		delete n;
+		return;
+	}
+
+	if (n->red || n->left->red) {
+		if (n->value < n->parent->value) n->parent->left = n->left;
+		else n->parent->right = n->left;
+
+		n->left->parent = n->parent;
+
+		n->left->red = false;
+		
+		delete n;
+		return;
+	}
 }
 void RedBlackTree::removeCase4(Node* n) {
 	Node* m = n->left;
