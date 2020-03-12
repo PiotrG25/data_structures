@@ -16,10 +16,34 @@ RedBlackTree::~RedBlackTree() {
 	if (root != NULL) deleteNode(root);
 }
 
+
 void RedBlackTree::deleteNode(Node* n) {
 	if (n->left != NULL) deleteNode(n->left);
 	if (n->right != NULL) deleteNode(n->right);
 	delete n;
+}
+
+void RedBlackTree::print() {
+	if (root == NULL) std::cout << "NULL" << std::endl;
+	else printNode(root);
+}
+void RedBlackTree::printNode(Node* n) {
+	std::cout << n->value << ' ';
+	if (n->red) std::cout << 'R' << ' ';
+	else std::cout << 'B' << ' ';
+
+	if (n->parent == NULL) std::cout << "NULL" << ' ';
+	else std::cout << n->parent->value << ' ';
+
+	if (n->left == NULL) std::cout << "NULL" << ' ';
+	else std::cout << n->left->value << ' ';
+
+	if (n->right == NULL) std::cout << "NULL" << std::endl;
+	else std::cout << n->right->value << std::endl;
+
+
+	if (n->left != NULL) printNode(n->left);
+	if (n->right != NULL) printNode(n->right);
 }
 
 
@@ -211,7 +235,7 @@ void RedBlackTree::add(int element) {
 
 	givenRedRestoreTreeInvariant(n);
 }
-
+// todo redo
 void RedBlackTree::givenRedRestoreTreeInvariant(Node* n) {
 	if (n == root) {
 		n->red = false;
@@ -300,6 +324,7 @@ void RedBlackTree::rotateLeft(Node* n) {
 	parent->parent = n;
 }
 
+
 RedBlackTree::Node* RedBlackTree::leftleftCase(Node* n) {
 	rotateRight(n->parent);
 
@@ -350,27 +375,45 @@ RedBlackTree::Node* RedBlackTree::rightRightCase(Node* n) {
 }
 
 
-void RedBlackTree::print() {
-	if (root == NULL) std::cout << "NULL" << std::endl;
-	else printNode(root);
-}
-
-void RedBlackTree::printNode(Node* n) {
-	std::cout << n->value << ' ';
-	if (n->red) std::cout << 'R' << ' ';
-	else std::cout << 'B' << ' ';
-
-	if (n->parent == NULL) std::cout << "NULL" << ' ';
-	else std::cout << n->parent->value << ' ';
-
-	if (n->left == NULL) std::cout << "NULL" << ' ';
-	else std::cout << n->left->value << ' ';
-
-	if (n->right == NULL) std::cout << "NULL" << std::endl;
-	else std::cout << n->right->value << std::endl;
 
 
-	if (n->left != NULL) printNode(n->left);
-	if (n->right != NULL) printNode(n->right);
-}
 
+void removeBlackLeafWithBlackSiblingRedNephewLeftLeftCase(Node* n);
+void removeBlackLeafWithBlackSiblingRedNephewLeftRightCase(Node* n);
+void removeBlackLeafWithBlackSiblingRedNephewRightLeftCase(Node* n);
+void removeBlackLeafWithBlackSiblingRedNephewRightRightCase(Node* n);
+
+// case describes position of n in relation to it's parent
+void removeBlackLeafWithBlackSiblingBlackNephewsLeftCase(Node* n);
+void removeBlackLeafWithBlackSiblingBlackNephewsRightCase(Node* n);
+
+void removeBlackLeafWithRedSiblingLeftCase(Node* n);
+void removeBlackLeafWithRedSiblingRightCase(Node* n);
+
+
+// case describes position of nephew in relation to n'S parent
+void removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewLeftLeftCase(Node* n);
+void removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewLeftRightCase(Node* n);
+void removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewRightLeftCase(Node* n);
+void removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewRightRightCase(Node* n);
+
+// case describes position of n in relation to it's parent
+void removeBlackNodeWithLeftSubtreeBlackSiblingBlackNephewsLeftCase(Node* n);
+void removeBlackNodeWithLeftSubtreeBlackSiblingBlackNephewsRightCase(Node* n);
+
+void removeBlackNodeWithLeftSubtreeRedSiblingLeftCase(Node* n);
+void removeBlackNodeWithLeftSubtreeRedSiblingRightCase(Node* n);
+
+
+// case describes position of red nephew in relation to n's parent
+void removeBlackNodeWithRightSubtreeBlackSiblingRedNephewLeftLeftCase(Node* n);
+void removeBlackNodeWithRightSubtreeBlackSiblingRedNephewLeftRightCase(Node* n);
+void removeBlackNodeWithRightSubtreeBlackSiblingRedNephewRightLeftCase(Node* n);
+void removeBlackNodeWithRightSubtreeBlackSiblingRedNephewRightRightCase(Node* n);
+
+// case describes position of n in relation to it's parent
+void removeBlackNodeWithRightSubtreeBlackSiblingBlackNephewsLeftCase(Node* n);
+void removeBlackNodeWithRightSubtreeBlackSiblingBlackNephewsRightCase(Node* n);
+
+void removeBlackNodeWithRightSubtreeRedSiblingLeftCase(Node* n);
+void removeBlackNodeWithRightSubtreeRedSiblingRightCase(Node* n);
