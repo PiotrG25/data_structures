@@ -245,62 +245,43 @@ void RedBlackTree::givenRedRestoreTreeInvariant(Node* n) {
 	if (!n->parent->red) return;
 
 
-	// getting uncle of Node n
-	Node* uncle;
-	if (n->value < n->parent->parent->value) {
-		uncle = n->parent->parent->right;
-	}
-	else {
-		uncle = n->parent->parent->left;
-	}
+	// getting parent, grandparent and uncle
+	Node* parent = n->parent, *grandparent = parent->parent, * uncle;
+	if (n->value < grandparent->value) uncle = grandparent->right;
+	else uncle = grandparent->left;
 
 
-	// because parent is black action depends on uncle
+	// because parent is red action depends on uncle
 	if (uncle == NULL || uncle->red == false) {
-		Node* greatgrandparent = n->parent->parent->parent, *result;
+		Node* greatgrandparent = grandparent->parent, *result;
 
 
 		// deciding in which case is n
-		if (n->value < n->parent->parent->value) {
-			if (n->value < n->parent->value) {
-				result = leftleftCase(n);
-			}
-			else {
-				result = leftRightCase(n);
-			}
+		if (n->value < grandparent->value) {
+			if (n->value < n->parent->value) result = leftleftCase(n);
+			else result = leftRightCase(n);
 		}
 		else {
-			if (n->value < n->parent->value) {
-				result = rightLeftCase(n);
-			}
-			else {
-				result = rightRightCase(n);
-			}
+			if (n->value < n->parent->value) result = rightLeftCase(n);
+			else result = rightRightCase(n);
 		}
 
 
-		// connecting hihgest node to the grandparent
+		// connecting hihgest node to grandparent
 		if (greatgrandparent == NULL) {
 			root = result;
 			result->parent = NULL;
 		}
 		else {
-			if (result->value < greatgrandparent->value) {
-				greatgrandparent->left = result;
-				result->parent = greatgrandparent;
-			}
-			else {
-				greatgrandparent->right = result;
-				result->parent = greatgrandparent;
-			}
+			if (result->value < greatgrandparent->value) greatgrandparent->left = result;
+			else greatgrandparent->right = result;
+			result->parent = greatgrandparent;
 		}
-
-		givenRedRestoreTreeInvariant(result);
 	}
 	else {
-		uncle->red = n->parent->red = false;
-		n->parent->parent->red = true;
-		givenRedRestoreTreeInvariant(n->parent->parent);
+		uncle->red = parent->red = false;
+		grandparent->red = true;
+		givenRedRestoreTreeInvariant(grandparent);
 	}
 }
 
@@ -378,42 +359,161 @@ RedBlackTree::Node* RedBlackTree::rightRightCase(Node* n) {
 
 
 
-void removeBlackLeafWithBlackSiblingRedNephewLeftLeftCase(Node* n);
-void removeBlackLeafWithBlackSiblingRedNephewLeftRightCase(Node* n);
-void removeBlackLeafWithBlackSiblingRedNephewRightLeftCase(Node* n);
-void removeBlackLeafWithBlackSiblingRedNephewRightRightCase(Node* n);
+void RedBlackTree::removeBlackLeafWithBlackSiblingRedNephewLeftLeftCase(Node* n);
+void RedBlackTree::removeBlackLeafWithBlackSiblingRedNephewLeftRightCase(Node* n);
+void RedBlackTree::removeBlackLeafWithBlackSiblingRedNephewRightLeftCase(Node* n);
+void RedBlackTree::removeBlackLeafWithBlackSiblingRedNephewRightRightCase(Node* n);
 
-// case describes position of n in relation to it's parent
-void removeBlackLeafWithBlackSiblingBlackNephewsLeftCase(Node* n);
-void removeBlackLeafWithBlackSiblingBlackNephewsRightCase(Node* n);
+void RedBlackTree::removeBlackLeafWithBlackSiblingBlackNephewsLeftCase(Node* n);
+void RedBlackTree::removeBlackLeafWithBlackSiblingBlackNephewsRightCase(Node* n);
 
-void removeBlackLeafWithRedSiblingLeftCase(Node* n);
-void removeBlackLeafWithRedSiblingRightCase(Node* n);
+void RedBlackTree::removeBlackLeafWithRedSiblingLeftCase(Node* n) {
+	Node* parent = n->parent, * s = parent->right, * grandparent = parent->parent;
+	rotateLeft(s);
+
+	s->red = false;
+	parent->right->red = true;
+
+	parent->left = NULL;
+
+	if (grandparent == NULL) {
+		root = s;
+		s->parent = NULL;
+	}
+	else {
+		if (s->value < grandparent->value) grandparent->left = s;
+		else grandparent->right = s;
+		s->parent = grandparent;
+	}
+
+	delete n;
+}
+void RedBlackTree::removeBlackLeafWithRedSiblingRightCase(Node* n) {
+	Node* parent = n->parent, * s = parent->left, * grandparent = parent->parent;
+	rotateRight(s);
+
+	s->red = false;
+	parent->left->red = true;
+
+	parent->right = NULL;
+
+	if (grandparent == NULL) {
+		root = s;
+		s->parent = NULL;
+	}
+	else {
+		if (s->value < grandparent->value) grandparent->left = s;
+		else grandparent->right = s;
+		s->parent = grandparent;
+	}
+
+	delete n;
+}
 
 
-// case describes position of nephew in relation to n'S parent
-void removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewLeftLeftCase(Node* n);
-void removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewLeftRightCase(Node* n);
-void removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewRightLeftCase(Node* n);
-void removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewRightRightCase(Node* n);
+void RedBlackTree::removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewLeftLeftCase(Node* n);
+void RedBlackTree::removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewLeftRightCase(Node* n);
+void RedBlackTree::removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewRightLeftCase(Node* n);
+void RedBlackTree::removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewRightRightCase(Node* n);
 
-// case describes position of n in relation to it's parent
-void removeBlackNodeWithLeftSubtreeBlackSiblingBlackNephewsLeftCase(Node* n);
-void removeBlackNodeWithLeftSubtreeBlackSiblingBlackNephewsRightCase(Node* n);
+void RedBlackTree::removeBlackNodeWithLeftSubtreeBlackSiblingBlackNephewsLeftCase(Node* n);
+void RedBlackTree::removeBlackNodeWithLeftSubtreeBlackSiblingBlackNephewsRightCase(Node* n);
 
-void removeBlackNodeWithLeftSubtreeRedSiblingLeftCase(Node* n);
-void removeBlackNodeWithLeftSubtreeRedSiblingRightCase(Node* n);
+void RedBlackTree::removeBlackNodeWithLeftSubtreeRedSiblingLeftCase(Node* n) {
+	Node* parent = n->parent, * s = parent->right, * grandparent = parent->parent;
+	rotateLeft(s);
+
+	s->red = false;
+	parent->right->red = true;
+
+	parent->left = n->left;
+	n->left->parent = parent;
+
+	if (grandparent == NULL) {
+		root = s;
+		s->parent = NULL;
+	}
+	else {
+		if (s->value < grandparent->value) grandparent->left = s;
+		else grandparent->right = s;
+		s->parent = grandparent;
+	}
+
+	delete n;
+}
+void RedBlackTree::removeBlackNodeWithLeftSubtreeRedSiblingRightCase(Node* n) {
+	Node* parent = n->parent, * s = parent->left, * grandparent = parent->parent;
+	rotateRight(s);
+
+	s->red = false;
+	parent->left->red = true;
+
+	parent->right = n->left;
+	n->left->parent = parent;
+
+	if (grandparent == NULL) {
+		root = s;
+		s->parent = NULL;
+	}
+	else {
+		if (s->value < grandparent->value) grandparent->left = s;
+		else grandparent->right = s;
+		s->parent = grandparent;
+	}
+
+	delete n;
+}
 
 
-// case describes position of red nephew in relation to n's parent
-void removeBlackNodeWithRightSubtreeBlackSiblingRedNephewLeftLeftCase(Node* n);
-void removeBlackNodeWithRightSubtreeBlackSiblingRedNephewLeftRightCase(Node* n);
-void removeBlackNodeWithRightSubtreeBlackSiblingRedNephewRightLeftCase(Node* n);
-void removeBlackNodeWithRightSubtreeBlackSiblingRedNephewRightRightCase(Node* n);
+void RedBlackTree::removeBlackNodeWithRightSubtreeBlackSiblingRedNephewLeftLeftCase(Node* n);
+void RedBlackTree::removeBlackNodeWithRightSubtreeBlackSiblingRedNephewLeftRightCase(Node* n);
+void RedBlackTree::removeBlackNodeWithRightSubtreeBlackSiblingRedNephewRightLeftCase(Node* n);
+void RedBlackTree::removeBlackNodeWithRightSubtreeBlackSiblingRedNephewRightRightCase(Node* n);
 
-// case describes position of n in relation to it's parent
-void removeBlackNodeWithRightSubtreeBlackSiblingBlackNephewsLeftCase(Node* n);
-void removeBlackNodeWithRightSubtreeBlackSiblingBlackNephewsRightCase(Node* n);
+void RedBlackTree::removeBlackNodeWithRightSubtreeBlackSiblingBlackNephewsLeftCase(Node* n);
+void RedBlackTree::removeBlackNodeWithRightSubtreeBlackSiblingBlackNephewsRightCase(Node* n);
 
-void removeBlackNodeWithRightSubtreeRedSiblingLeftCase(Node* n);
-void removeBlackNodeWithRightSubtreeRedSiblingRightCase(Node* n);
+void RedBlackTree::removeBlackNodeWithRightSubtreeRedSiblingLeftCase(Node* n) {
+	Node* parent = n->parent, * s = parent->right, * grandparent = parent->parent;
+	rotateLeft(s);
+
+	s->red = false;
+	parent->right->red = true;
+
+	parent->left = n->right;
+	n->right->parent = parent;
+
+	if (grandparent == NULL) {
+		root = s;
+		s->parent = NULL;
+	}
+	else {
+		if (s->value < grandparent->value) grandparent->left = s;
+		else grandparent->right = s;
+		s->parent = grandparent;
+	}
+
+	delete n;
+}
+void RedBlackTree::removeBlackNodeWithRightSubtreeRedSiblingRightCase(Node* n) {
+	Node* parent = n->parent, * s = parent->left, * grandparent = parent->parent;
+	rotateRight(s);
+
+	s->red = false;
+	parent->left->red = true;
+
+	parent->right = n->right;
+	n->right->parent = parent;
+
+	if (grandparent == NULL) {
+		root = s;
+		s->parent = NULL;
+	}
+	else {
+		if (s->value < grandparent->value) grandparent->left = s;
+		else grandparent->right = s;
+		s->parent = grandparent;
+	}
+
+	delete n;
+}

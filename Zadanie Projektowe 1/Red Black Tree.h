@@ -27,9 +27,11 @@ class RedBlackTree {
 
 	// replaces n's right subtree with parent and
 	// parent's left subtree with n's right subtree
+	// n lands on top
 	void rotateRight(Node* n);
 	// replaces n's left subtree with parent and
 	// parends's right subtree with n's left subtree
+	// n lands on top
 	void rotateLeft(Node* n);
 
 
