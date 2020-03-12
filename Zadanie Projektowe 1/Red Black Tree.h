@@ -34,19 +34,46 @@ class RedBlackTree {
 
 
 	// set of cases depending on possition of Node n
-	// used only when n is red
-	// n's parent is red
-	// n's uncle is black
+	// return highest Node in the subtree
 	Node* leftleftCase(Node* n);
 	Node* leftRightCase(Node* n);
 	Node* rightLeftCase(Node* n);
 	Node* rightRightCase(Node* n);
 
 
-	void removeCase1(Node* n);
-	void removeCase2(Node* n);
-	void removeCase3(Node* n);
-	void removeCase4(Node* n);
+	void removeLeaf(Node* n);
+	void removeNodeWithLeftSubtree(Node* n);
+	void removeNodeWithRightSubtree(Node* n);
+	void removeNodeWithBothSubtrees(Node* n);
+
+
+	// case describes position of red nephew in repation to n's parent
+	void removeBlackLeafWithBlackSiblingRedNephewLeftLeftCase(Node* n);
+	void removeBlackLeafWithBlackSiblingRedNephewLeftRightCase(Node* n);
+	void removeBlackLeafWithBlackSiblingRedNephewRightLeftCase(Node* n);
+	void removeBlackLeafWithBlackSiblingRedNephewRightRightCase(Node* n);
+
+	// case describes position of n in relation to it's parent
+	void removeBlackLeafWithBlackSiblingBlackNephewsLeftCase(Node* n);
+	void removeBlackLeafWithBlackSiblingBlackNephewsRightCase(Node* n);
+
+	void removeBlackLeafWithBlackSibling
+	void removeBlackLeafWithBlackSibling
+	void removeBlackLeafWith
+	void removeBlackLeafWith
+	void removeBlackLeaf
+	void removeBlackLeaf
+	void removeBlackLeaf
+
+
+	void removeBlackNodeWithOneChildRedNephewLeftLeftCase(Node* n);
+	void removeBlackNodeWithOneChildRedNephewLeftRightCase(Node* n);
+	void removeBlackNodeWithOneChildRedNephewRightLeftCase(Node* n);
+	void removeBlackNodeWithOneChildRedNephewRightRightCase(Node* n);
+	void removeBlackNodeWithOneChild
+	void removeBlackNodeWithOneChild
+	void removeBlackNodeWithOneChild
+	void removeBlackNodeWithOneChild
 
 public:
 

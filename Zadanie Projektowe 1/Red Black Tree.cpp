@@ -35,15 +35,21 @@ void RedBlackTree::remove(int element) {
 
 	if (n == NULL) return; // todo exception
 
-	if (n->left == NULL && n->right == NULL) removeCase1(n);
-	else if (n->left == NULL) removeCase2(n);
-	else if (n->right == NULL) removeCase3(n);
-	else removeCase4(n);
+	if (n->left == NULL && n->right == NULL) removeLeaf(n);
+	else if (n->left == NULL) removeNodeWithRightSubtree(n);
+	else if (n->right == NULL) removeNodeWithLeftSubtree(n);
+	else removeNodeWithBothSubtrees(n);
 
 	--size;
 }
 
-void RedBlackTree::removeCase1(Node* n) {
+void RedBlackTree::removeLeaf(Node* n) {
+	if (n == root) {
+		root = NULL;
+		delete n;
+		return;
+	}
+
 	if (n->red) {
 		if (n->value < n->parent->value) n->parent->left = NULL;
 		else n->parent->right = NULL;
@@ -51,9 +57,30 @@ void RedBlackTree::removeCase1(Node* n) {
 		delete n;
 		return;
 	}
+
+	// n is black
+	// get parent and sibling
+	Node* parent = n->parent, * s;
+	if (n->value < parent->value) {
+		s = parent->right;
+		if(s->red)
+		else {
+			if (s->right != NULL && s->right->red) removeBlackLeafWithRedNephewRightRightCase(n);
+			else if (s->left != NULL && s->left->red) removeBlackLeafWithRedNephewRightLeftCase(n);
+			else
+		}
+	}
+	else {
+		s = parent->left;
+		if(s->red)
+		else {
+			if (s->left != NULL && s->left->red) removeBlackLeafWithRedNephewLeftLeftCase(n);
+			else if (s->right != NULL && s->right->red) removeBlackLeafWithRedNephewLeftRightCase(n);
+			else
+		}
+	}
 }
- // n->left == NULL
-void RedBlackTree::removeCase2(Node* n) {
+void RedBlackTree::removeNodeWithRightSubtree(Node* n) {
 	if (n == root) {
 		root = n->right;
 		root->parent = NULL;
@@ -74,9 +101,25 @@ void RedBlackTree::removeCase2(Node* n) {
 		delete n;
 		return;
 	}
+
+	// n and its child are black
+	// get sibling
+	Node* s;
+	if (n->value < n->parent->value) s = n->parent->right;
+	else s = n->parent->left;
+
+	if (s->left != NULL && s->left->red) {
+
+	}
+	else if (s->right != NULL && s->right->red) {
+
+	}
+	else {
+
+	}
 }
  // n->right == NULL
-void RedBlackTree::removeCase3(Node* n) {
+void RedBlackTree::removeNodeWithLeftSubtree(Node* n) {
 	if (n == root) {
 		root = n->left;
 		root->parent = NULL;
@@ -97,8 +140,37 @@ void RedBlackTree::removeCase3(Node* n) {
 		delete n;
 		return;
 	}
+
+	// n and its child are black
+	// get sibling
+	Node* s;
+	if (n->value < n->parent->value) {
+		s = n->parent->right;
+		if (s->left != NULL && s->left->red) {
+
+		}
+		else if (s->right != NULL && s->right->red) {
+
+		}
+		else {
+
+		}
+	}
+	else {
+		s = n->parent->left;
+		if (s->left != NULL && s->left->red) {
+
+		}
+		else if (s->right != NULL && s->right->red) {
+
+		}
+		else {
+
+		}
+	}
+
 }
-void RedBlackTree::removeCase4(Node* n) {
+void RedBlackTree::removeNodeWithBothSubtrees(Node* n) {
 	Node* m = n->left;
 	while (m->right != NULL) m = m->right;
 
@@ -106,7 +178,7 @@ void RedBlackTree::removeCase4(Node* n) {
 	n->value = m->value;
 	m->value = t;
 
-	removeCase3(m);
+	removeNodeWithLeftSubtree(m);
 }
 
 
