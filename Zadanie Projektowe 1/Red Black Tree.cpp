@@ -235,7 +235,6 @@ void RedBlackTree::add(int element) {
 
 	givenRedRestoreTreeInvariant(n);
 }
-// todo redo
 void RedBlackTree::givenRedRestoreTreeInvariant(Node* n) {
 	if (n == root) {
 		n->red = false;
