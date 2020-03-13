@@ -66,34 +66,6 @@ class RedBlackTree {
 	void removeBlackLeafWithRedSiblingLeftCase(Node* n);
 	void removeBlackLeafWithRedSiblingRightCase(Node* n);
 
-
-	// case describes position of nephew in relation to n'S parent
-	void removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewLeftLeftCase(Node* n);
-	void removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewLeftRightCase(Node* n);
-	void removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewRightLeftCase(Node* n);
-	void removeBlackNodeWithLeftSubtreeBlackSiblingRedNephewRightRightCase(Node* n);
-
-	// case describes position of n in relation to it's parent
-	void removeBlackNodeWithLeftSubtreeBlackSiblingBlackNephewsLeftCase(Node* n);
-	void removeBlackNodeWithLeftSubtreeBlackSiblingBlackNephewsRightCase(Node* n);
-
-	void removeBlackNodeWithLeftSubtreeRedSiblingLeftCase(Node* n);
-	void removeBlackNodeWithLeftSubtreeRedSiblingRightCase(Node* n);
-
-
-	// case describes position of red nephew in relation to n's parent
-	void removeBlackNodeWithRightSubtreeBlackSiblingRedNephewLeftLeftCase(Node* n);
-	void removeBlackNodeWithRightSubtreeBlackSiblingRedNephewLeftRightCase(Node* n);
-	void removeBlackNodeWithRightSubtreeBlackSiblingRedNephewRightLeftCase(Node* n);
-	void removeBlackNodeWithRightSubtreeBlackSiblingRedNephewRightRightCase(Node* n);
-
-	// case describes position of n in relation to it's parent
-	void removeBlackNodeWithRightSubtreeBlackSiblingBlackNephewsLeftCase(Node* n);
-	void removeBlackNodeWithRightSubtreeBlackSiblingBlackNephewsRightCase(Node* n);
-
-	void removeBlackNodeWithRightSubtreeRedSiblingLeftCase(Node* n);
-	void removeBlackNodeWithRightSubtreeRedSiblingRightCase(Node* n);
-
 public:
 
 	RedBlackTree(int * arr, int size);
