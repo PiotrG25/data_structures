@@ -409,10 +409,26 @@ void RedBlackTree::removeBlackLeafWithBlackSiblingRedNephewRightRightCase(Node* 
 }
 
 void RedBlackTree::removeBlackLeafWithBlackSiblingBlackNephewsLeftCase(Node* n) {
+	// parent, sibling, grandparent
+	Node* p = n->parent, * s = p->right, * g = p->parent;
 
+	p->left = NULL;
+	delete n;
+
+	s->red = true;
+	if (p->red) p->red = true;
+	else givenDoubleBlackRestoreTreeInvariant(p);
 }
 void RedBlackTree::removeBlackLeafWithBlackSiblingBlackNephewsRightCase(Node* n) {
-
+	// parent, sibling, grandparent
+	Node* p = n->parent, * s = p->left, * g = p->parent;
+	
+	p->right = NULL;
+	delete n;
+	
+	s->red = true;
+	if (p->red) p->red = false;
+	else givenDoubleBlackRestoreTreeInvariant(p);
 }
 
 void RedBlackTree::removeBlackLeafWithRedSiblingLeftCase(Node* n) {
@@ -457,5 +473,111 @@ void RedBlackTree::removeBlackLeafWithRedSiblingRightCase(Node* n) {
 		if (s->value < g->value) g->left = s;
 		else g->right = s;
 		s->parent = g;
+	}
+}
+
+
+void RedBlackTree::givenDoubleBlackRestoreTreeInvariant(Node* n) {
+	if (n == root) return;
+
+	// parent, sibling, left nephew, right nephew, grandparent
+	Node* p = n->parent, * s, * ln, * rn, * g = p->parent;
+	if (n->value < p->value) {
+		s = p->right;
+		ln = s->left;
+		rn = s->right;
+
+		if (s->red) {
+			p->red = true;
+			s->red = false;
+			rotateLeft(s);
+
+			connectTopToGrandparent(s, g);
+
+			givenDoubleBlackRestoreTreeInvariant(n);
+		}
+		else {
+			if (rn->red) {
+				// right right case
+				rn->red = s->red;
+				s->red = p->red;
+				p->red = false;
+				rotateLeft(s);
+
+				connectTopToGrandparent(s, g);
+			}
+			else if (ln->red) {
+				// right left case
+				ln->red = p->red;
+				p->red = false;
+
+				rotateRight(ln);
+				ln->parent = p;
+				p->right = ln;
+				rotateLeft(ln);
+
+				connectTopToGrandparent(ln, g);
+			}
+			else {
+				s->red = true;
+				if (p->red) p->red = false;
+				else givenDoubleBlackRestoreTreeInvariant(p);
+			}
+		}
+	}
+	else {
+		s = p->left;
+		ln = s->left;
+		rn = s->right;
+
+		if (s->red) {
+			p->red = false;
+			s->red = true;
+			rotateRight(s);
+
+			connectTopToGrandparent(s, g);
+
+			givenDoubleBlackRestoreTreeInvariant(n);
+		}
+		else {
+			if (ln->red) {
+				// left left case
+				ln->red = s->red;
+				s->red = p->red;
+				p->red = false;
+				rotateRight(s);
+
+				connectTopToGrandparent(s, g);
+			}
+			else if (rn->red) {
+				// left right case
+				rn->red = p->red;
+				p->red = false;
+				rotateLeft(rn);
+				rn->parent = p;
+				p->left = rn;
+				rotateRight(rn);
+
+				connectTopToGrandparent(rn, g);
+			}
+			else {
+				s->red = true;
+				if (p->red) p->red = false;
+				else givenDoubleBlackRestoreTreeInvariant(p);
+			}
+		}
+	}
+
+
+}
+void RedBlackTree::connectTopToGrandparent(Node* top, Node* grandparent) {
+	if (grandparent == NULL) {
+		root = top;
+		root->parent = NULL;
+	}
+	else {
+		if (top->value < grandparent->value) grandparent->left = top;
+		else grandparent->right = top;
+		top->parent = grandparent;
 	}
 }

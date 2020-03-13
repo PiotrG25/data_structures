@@ -66,6 +66,15 @@ class RedBlackTree {
 	void removeBlackLeafWithRedSiblingLeftCase(Node* n);
 	void removeBlackLeafWithRedSiblingRightCase(Node* n);
 
+
+	void givenDoubleBlackRestoreTreeInvariant(Node* n);
+	
+	void connectTopToGrandparent(Node* top, Node* grandparent);
+
+
+	bool isCorrectTree();
+	bool isCorrectSubtree(Node* n);
+
 public:
 
 	RedBlackTree(int * arr, int size);
