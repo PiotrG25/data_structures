@@ -82,10 +82,11 @@ void RedBlackTree::removeLeaf(Node* n) {
 		return;
 	}
 
+	// 1 1 1 2 1 3 1 4 1 5 1 6
 	// n is black
 	// decide by parent, sibling and nephews
 	Node* p = n->parent, * s;
-	if (n->value < p->value) {
+	if (n->value <= p->value) {
 		s = p->right;
 		if (s->red) removeBlackLeafWithRedSiblingLeftCase(n);
 		else {
@@ -148,9 +149,7 @@ void RedBlackTree::removeNodeWithBothSubtrees(Node* n) {
 	Node* m = n->left;
 	while (m->right != NULL) m = m->right;
 
-	int t = n->value;
 	n->value = m->value;
-	m->value = t;
 
 	if (m->left != NULL) removeNodeWithLeftSubtree(m);
 	else removeLeaf(m);
@@ -579,5 +578,37 @@ void RedBlackTree::connectTopToGrandparent(Node* top, Node* grandparent) {
 		if (top->value < grandparent->value) grandparent->left = top;
 		else grandparent->right = top;
 		top->parent = grandparent;
+	}
+}
+
+
+bool RedBlackTree::isCorrectTree() {
+	if (root == NULL) return true;
+	else {
+		if (root->red) return false;
+		int l = 0, r = 0;
+
+		if (root->left != NULL)
+			if (!isCorrectSubtree(root->left, l)) return false;
+		if (root->right != NULL)
+			if (!isCorrectSubtree(root->right, r)) return false;
+
+		return l == r;
+	}
+}
+bool RedBlackTree::isCorrectSubtree(Node* n, int & height) {
+	if (n->red && n->parent->red) return false;
+	int l = 0, r = 0;
+
+	if (n->left != NULL)
+		if (!isCorrectSubtree(n->left, l)) return false;
+	if (n->right != NULL)
+		if (!isCorrectSubtree(n->right, r)) return false;
+
+	if (l != r) return false;
+	else {
+		height = l;
+		if (!n->red) height++;
+		return true;
 	}
 }

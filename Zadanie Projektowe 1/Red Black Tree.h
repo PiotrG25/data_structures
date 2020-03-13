@@ -72,8 +72,7 @@ class RedBlackTree {
 	void connectTopToGrandparent(Node* top, Node* grandparent);
 
 
-	bool isCorrectTree();
-	bool isCorrectSubtree(Node* n);
+	bool isCorrectSubtree(Node* n, int& height);
 
 public:
 
@@ -84,14 +83,15 @@ public:
 
 	void remove(int element);
 
-	
-
 
 	bool search(int element);
 
 
 	void print();
 	void printNode(Node* n);
+
+
+	bool isCorrectTree();
 };
 
 #endif

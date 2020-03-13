@@ -25,11 +25,13 @@ int main() {
 
 	RedBlackTree rbt = RedBlackTree(arr, n);
 
-	int a;
+	int a, b;
 	do {
 		rbt.print();
-		cin >> a;
-		rbt.add(a);
+		cout << rbt.isCorrectTree() << endl;
+		cin >> a >> b;
+		if (a == 1) rbt.add(b);
+		else if (a == 2) rbt.remove(b);
 	} while (a != 0);
 
 
