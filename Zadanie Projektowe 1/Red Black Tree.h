@@ -18,11 +18,11 @@ class RedBlackTree {
 	Node* root;
 	int size;
 
-	void deleteNode(Node* n); // delete subtree
+
+	void deleteSubtree(Node* n); // delete subtree
 
 
-	void givenRedRestoreTreeInvariant(Node* n);
-
+	// ROTATIONS
 	// places n in place of its parent and:
 
 	// replaces n's right subtree with parent and
@@ -35,18 +35,24 @@ class RedBlackTree {
 	void rotateLeft(Node* n);
 
 
-
 	// INSERTION cases
+
+	void givenRedRestoreTreeInvariant(Node* n);
+
 	// set of cases depending on possition of Node n
+	// used in restoring violation of tree invariant type red red
 	// return highest Node in the subtree
-	Node* leftleftCase(Node* n);
-	Node* leftRightCase(Node* n);
-	Node* rightLeftCase(Node* n);
-	Node* rightRightCase(Node* n);
+	Node* redRedLeftleftCase(Node* n);
+	Node* redRedLeftRightCase(Node* n);
+	Node* redRedRightLeftCase(Node* n);
+	Node* redRedRightRightCase(Node* n);
 
 
 	// REMOVAL cases
 
+	void givenDoubleBlackRestoreTreeInvariant(Node* n);
+
+	// basic removal cases
 	void removeLeaf(Node* n);
 	void removeNodeWithLeftSubtree(Node* n);
 	void removeNodeWithRightSubtree(Node* n);
@@ -62,35 +68,48 @@ class RedBlackTree {
 	// case describes position of n in relation to it's parent
 	void removeBlackLeafWithBlackSiblingBlackNephewsLeftCase(Node* n);
 	void removeBlackLeafWithBlackSiblingBlackNephewsRightCase(Node* n);
-
 	void removeBlackLeafWithRedSiblingLeftCase(Node* n);
 	void removeBlackLeafWithRedSiblingRightCase(Node* n);
 
 
-	void givenDoubleBlackRestoreTreeInvariant(Node* n);
-	
-	void connectTopToGrandparent(Node* top, Node* grandparent);
+	// repeted part of code
+	// used after changing structure of subtree
+	// connects top node of new subtree to parent of subtree
+	void connectTopOfSubtreeToHigherNode(Node* top, Node* higher);
 
-
+	// checks if node n and its parent aren't both red
+	// compares heights of its subtrees
+	// sets height to height of subtree including node n
 	bool isCorrectSubtree(Node* n, int& height);
 
+
 public:
+
 
 	RedBlackTree(int * arr, int size);
 	~RedBlackTree();
 
+	// adds element to the tree
+	// tree allows only unique values
 	void add(int element);
 
+	// removes element from the tree
 	void remove(int element);
 
-
+	// returns true if element is in the tree
 	bool search(int element);
 
-
+	// prints tree node by node
 	void print();
+
+	// prints value and color of node n
+	// values of parent, left child and right child
+	// NULL if node does not exist
+	// calls printNode for non NULL children
 	void printNode(Node* n);
 
 
+	// checks tree invariant
 	bool isCorrectTree();
 };
 

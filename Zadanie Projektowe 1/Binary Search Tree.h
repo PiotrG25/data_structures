@@ -30,6 +30,7 @@ public:
 
 
 	// adds element to the tree
+	// tree allows only unique values
 	void add(int element);
 
 	// removes element from the tree
