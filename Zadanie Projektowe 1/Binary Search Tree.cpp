@@ -27,7 +27,6 @@ BinarySearchTree::~BinarySearchTree() {
 }
 
 
-
 void BinarySearchTree::add(int element) {
 	if (size == 0) {
 		root = new Node(element);
@@ -58,8 +57,9 @@ void BinarySearchTree::add(int element) {
 }
 
 void BinarySearchTree::remove(int element) {
-	Node* n = root, * parent = NULL;
+	if (size == 0) return; // tree is empty
 
+	Node* n = root, * parent = NULL;
 	while (n != NULL) {
 		if (element == n->value) break;
 
@@ -69,60 +69,71 @@ void BinarySearchTree::remove(int element) {
 		else n = n->right;
 	}
 
-	if (n == NULL) throw NOT_FOUND;
+	if (n == NULL) return; // element is not in the tree
 
 
-	if (n->left == NULL && n->right == NULL) {
-		if (parent == NULL) {
-			delete n;
-			root = NULL;
-		}
-		else if (n->value < parent->value) {
-			parent->left = NULL;
-			delete n;
-		}
-		else {
-			parent->right = NULL;
-			delete n;
-		}
-	}
-	else if (n->left == NULL) {
-		if (parent == NULL) {
-			root = root->right;
-			delete n;
-		}
-		else if (n->value < parent->value) {
-			parent->left = n->right;
-			delete n;
-		}
-		else {
-			parent->right = n->right;
-			delete n;
-		}
-	}
-	else if (n->right == NULL) {
-		if (parent == NULL) {
-			root = root->left;
-			delete n;
-		}
-		else if (n->value < parent->value) {
-			parent->left = n->left;
-			delete n;
-		}
-		else {
-			parent->right = n->left;
-			delete n;
-		}
-	}
+	if (n->left == NULL && n->right == NULL) removeLeaf(n, parent);
+	else if (n->right == NULL) removeNodeWithLeftSubtree(n, parent);
+	else if (n->left == NULL) removeNodeWithRightSubtree(n, parent);
 	else {
 		Node* maxLeft = n->left;
 		while (maxLeft->right != NULL) maxLeft = maxLeft->right;
+		
 		int t = maxLeft->value;
-		remove(maxLeft->value);
+
+		if (maxLeft->left != NULL) removeNodeWithLeftSubtree(maxLeft);
+		else removeLeaf(maxLeft);
+
 		n->value = t;
 	}
 
 	--size;
+}
+
+
+void BinarySearchTree::removeLeaf(Node* n, Node* parent) {
+	if (parent == NULL) {
+		delete n;
+		root = NULL;
+	}
+	else if (n->value < parent->value) {
+		parent->left = NULL;
+		delete n;
+	}
+	else {
+		parent->right = NULL;
+		delete n;
+	}
+}
+
+void BinarySearchTree::removeNodeWithLeftSubtree(Node* n, Node* parent) {
+	if (parent == NULL) {
+		root = root->left;
+		delete n;
+	}
+	else if (n->value < parent->value) {
+		parent->left = n->left;
+		delete n;
+	}
+	else {
+		parent->right = n->left;
+		delete n;
+	}
+}
+
+void BinarySearchTree::removeNodeWithRightSubtree(Node* n, Node* parent) {
+	if (parent == NULL) {
+		root = root->right;
+		delete n;
+	}
+	else if (n->value < parent->value) {
+		parent->left = n->right;
+		delete n;
+	}
+	else {
+		parent->right = n->right;
+		delete n;
+	}
 }
 
 bool BinarySearchTree::search(int element) {
