@@ -378,7 +378,7 @@ void RedBlackTree::removeLeaf(Node* n) {
 	// n is black
 	// decide by parent, sibling and nephews
 	Node* p = n->parent, * s;
-	if (n->value <= p->value) {
+	if (n->value < p->value) {
 		s = p->right;
 		if (s->red) removeBlackLeafWithRedSiblingLeftCase(n);
 		else {
@@ -444,10 +444,12 @@ void RedBlackTree::removeNodeWithBothSubtrees(Node* n) {
 	Node* m = n->left;
 	while (m->right != NULL) m = m->right;
 
-	n->value = m->value;
+	int t = m->value;
 
 	if (m->left != NULL) removeNodeWithLeftSubtree(m);
 	else removeLeaf(m);
+
+	n->value = t;
 }
 
 
