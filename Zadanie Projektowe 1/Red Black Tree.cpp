@@ -47,6 +47,16 @@ void RedBlackTree::printNode(Node* n) {
 }
 
 
+bool RedBlackTree::search(int element) {
+	Node* n = root;
+	while (n != NULL) {
+		if (n->value == element) return true;
+		else if (element < n->value) n = n->left;
+		else n = n->right;
+	}
+	return false;
+}
+
 void RedBlackTree::remove(int element) {
 	if (size == 0) return; // todo exception
 
