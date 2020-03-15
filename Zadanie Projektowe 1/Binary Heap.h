@@ -25,7 +25,6 @@ public:
 
 	
 	// removes first element of designated value
-	// throws NOT_FOUND exception if element is not in the heap
 	void remove(int element);
 
 
@@ -39,24 +38,22 @@ public:
 	// restores heap invariant by bubbling down starting from designated index
 	void bubbleDown(int index);
 
+
 	// returns parent index
-	int getParent(int index);
+	int getParentIndex(int index);
 
 	// returns left child index
-	int getLeftChild(int index);
+	int getLeftChildIndex(int index);
 
 	// returns right child index
-	int getRightChild(int index);
+	int getRightChildIndex(int index);
+
 
 	// returns size
 	int getSize();
 
-	// returns element at index 0
-	// throws EMPTY exception if heap is empty
-	int peek();
 
-
-	// prints heap shaped like a tree
+	// prints array
 	void print();
 };
 

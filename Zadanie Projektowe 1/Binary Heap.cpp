@@ -5,16 +5,16 @@
 BinaryHeap::BinaryHeap(int* arr, int size) {
 
 	// array without resizing requires more space
-	this->length = 2 * size + 100;
+	length = 2 * size + 100;
+	this->arr = new int[length];
 
 	this->size = size;
-	this->arr = new int[this->length];
 	for (int i = 0; i < size; ++i) this->arr[i] = arr[i];
 
 	// starting from node holding the last leaf
 	// we are restoring heap invariant 
-	// according to Floyd's algorithm
-	for (int i = getParent(size - 1); i >= 0; --i) bubbleDown(i);
+	// according to Floyd's algorithm O(n)
+	for (int i = getParentIndex(size - 1); i >= 0; --i) bubbleDown(i);
 }
 
 BinaryHeap::~BinaryHeap() {
@@ -33,7 +33,7 @@ void BinaryHeap::remove(int element) {
 	int index = 0;
 	for (; index < size && arr[index] != element; ++index);
 
-	if (index >= size) throw NOT_FOUND;
+	if (index >= size) return;
 
 	arr[index] = arr[--size];
 	bubbleDown(index);
@@ -46,20 +46,21 @@ bool BinaryHeap::search(int element) {
 
 
 void BinaryHeap::bubbleUp(int index) {
-	int parent = getParent(index);
-	
-	while (index > 0 && arr[parent] < arr[index]) {
+	if (index <= 0) return;
+
+	int parent = getParentIndex(index);
+	while (arr[parent] < arr[index]) {
 		int t = arr[parent];
 		arr[parent] = arr[index];
 		arr[index] = t;
 
 		index = parent;
-		parent = getParent(index);
+		parent = getParentIndex(index);
 	}
 }
 
 void BinaryHeap::bubbleDown(int index) {
-	int left = getLeftChild(index), right = getRightChild(index);
+	int left = getLeftChildIndex(index), right = getRightChildIndex(index);
 
 	while (true) {
 		if (left >= size) {
@@ -101,56 +102,33 @@ void BinaryHeap::bubbleDown(int index) {
 				else break;
 			}
 
-			left = getLeftChild(index);
-			right = getRightChild(index);
+			left = getLeftChildIndex(index);
+			right = getRightChildIndex(index);
 		}
 	}
 }
 
-int BinaryHeap::getParent(int index) {
+
+int BinaryHeap::getParentIndex(int index) {
 	return (index - 1) / 2;
 }
 
-int BinaryHeap::getLeftChild(int index) {
+int BinaryHeap::getLeftChildIndex(int index) {
 	return index * 2 + 1;
 }
 
-int BinaryHeap::getRightChild(int index) {
+int BinaryHeap::getRightChildIndex(int index) {
 	return index * 2 + 2;
 }
+
 
 int BinaryHeap::getSize() {
 	return size;
 }
 
-int BinaryHeap::peek() {
-	if (size <= 0) throw EMPTY;
-	return arr[0];
-}
-
 
 void BinaryHeap::print() {
-	int depth = 0, s = size;
-	while (s > 0) {
-		++depth;
-		s /= 2;
-	}
-
-	int NUMBER_WIDTH = 3;
-
-	int width = NUMBER_WIDTH * (int)pow(2, depth);
-	int i = 0;
-
-	for (int j = 1; j <= depth; ++j) {
-		for (int k = 0; i < size && k < (int)pow(2, j - 1); ++k, ++i) {
-			for (int m = 0; m < width / 2 - NUMBER_WIDTH / 2; ++m) std::cout << ' ';
-			std::cout << std::setw(NUMBER_WIDTH) << arr[i];
-			for (int m = 0; m < width / 2 - NUMBER_WIDTH / 2 - 1; ++m) std::cout << ' ';
-		}
-		std::cout << std::endl;
-		width /= 2;
-		if (i >= size) break;
-	}
-
+	for (int i = 1; i < size; ++i) std::cout << arr[i - 1] << ", ";
+	std::cout << arr[size - 1] << std::endl;
 }
 
