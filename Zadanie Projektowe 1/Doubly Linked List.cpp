@@ -1,8 +1,14 @@
 
 #include "Doubly Linked List.h"
 
+DoublyLinkedList::Node::Node(int element) {
+	this->value = element;
+	this->left = NULL;
+	this->right = NULL;
+}
+
 DoublyLinkedList::DoublyLinkedList(int* arr, int size) {
-		this->size = size;
+	this->size = size;
 	if (size == 0) {
 		head = NULL;
 		tail = NULL;
@@ -29,7 +35,9 @@ void DoublyLinkedList::addLast(int element) {
 }
 
 void DoublyLinkedList::addAt(int element, int index) {
-	if (index < 0 || index > size) throw OUT_OF_BOUND;
+	if (index < 0) addFirst(element);
+	else if (index > size) addLast(element);
+
 
 	if (size == 0) {
 		head = tail = new Node(element);
@@ -67,8 +75,7 @@ void DoublyLinkedList::removeLast() {
 }
 
 void DoublyLinkedList::removeAt(int index) {
-	if (size == 0) throw EMPTY;
-	if (index < 0 || index >= size) throw OUT_OF_BOUND;
+	if (index < 0 || index >= size) return;
 
 	Node* n = head;
 	for (int i = 0; i < index; ++i) n = n->right;
@@ -101,7 +108,9 @@ void DoublyLinkedList::removeAt(int index) {
 }
 
 void DoublyLinkedList::remove(int element){
-	removeAt(find(element));
+	int i = find(element);
+	if (i < 0) return;
+	removeAt(i);
 }
 
 
@@ -117,7 +126,7 @@ bool DoublyLinkedList::search(int element) {
 int DoublyLinkedList::find(int element) {
 	Node* n = head;
 	for (int i = 0; i < size; ++i, n = n->right) if (n->value == element) return i;
-	throw NOT_FOUND;
+	return -1;
 }
 
 int DoublyLinkedList::getSize() {

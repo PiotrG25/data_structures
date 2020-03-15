@@ -128,7 +128,7 @@ int BinaryHeap::getSize() {
 
 
 void BinaryHeap::print() {
-	for (int i = 1; i < size; ++i) std::cout << arr[i - 1] << ", ";
+	for (int i = 1; i < size; ++i) std::cout << arr[i - 1] << ' ';
 	std::cout << arr[size - 1] << std::endl;
 }
 

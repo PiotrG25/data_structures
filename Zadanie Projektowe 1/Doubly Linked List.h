@@ -11,11 +11,7 @@ class DoublyLinkedList {
 		int value;
 		Node *left, *right;
 
-		Node(int element) {
-			this->value = element;
-			this->left = NULL;
-			this->right = NULL;
-		}
+		Node(int value);
 	};
 
 	Node *head, *tail;
@@ -33,25 +29,19 @@ public:
 	void addLast(int element);
 
 	// adds element at designated index
-	// throws OUT_OF_BOUND exception if index is out of {0, 1, 2, ... S} where S is size before insertion
 	void addAt(int element, int index);
 
 
 	// removes first element
-	// throws EMPTY exception if list is empty
 	void removeFirst();
 
 	// removes last element
-	// throws EMPTY exception if list is empty
 	void removeLast();
 
 	// removes element at designated index
-	// throws EMPTY exception if list is empty
-	// throws OUT_OF_BOUND exception if index is out of bound
 	void removeAt(int index);
 
 	// removes first element of designated value
-	// throws NOT_FOUND exception if element is not in the list
 	void remove(int element);
 
 
@@ -59,7 +49,7 @@ public:
 	bool search(int element);
 
 	// returns index of first element of designated value
-	// throws NOT_FOUND exception if element is not in the list
+	// -1 if not found
 	int find(int element);
 
 	// return size

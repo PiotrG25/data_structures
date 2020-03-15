@@ -53,7 +53,7 @@ void Array::removeLast() {
 }
 
 void Array::removeAt(int index) {
-	if (index < 0 || index >= size) remove;
+	if (index < 0 || index >= size) return;
 
 	int* newArr = new int[size - 1];
 
