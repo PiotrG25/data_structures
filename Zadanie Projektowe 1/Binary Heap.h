@@ -3,7 +3,6 @@
 #define BINARY_HEAP_H
 
 #include <iostream>
-#include <iomanip>
 
 #include "Exceptions.h"
 

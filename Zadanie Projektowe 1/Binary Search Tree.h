@@ -25,6 +25,15 @@ class BinarySearchTree {
 	void removeNodeWithLeftSubtree(Node* n, Node* parent);
 	void removeNodeWithRightSubtree(Node* n, Node* parent);
 
+	// ROTATIONS
+
+	// places n->left on top
+	// returns top
+	Node* rotateRight(Node* n, Node* parent);
+	//places n->right on top
+	// return top
+	Node* rotateLeft(Node* n, Node* parent);
+
 public:
 
 	BinarySearchTree(int* arr, int size);
@@ -41,6 +50,9 @@ public:
 	// returns true if element is in the tree
 	bool search(int element);
 
+
+	// rebalances tree using DSW slgorithm
+	void rebalanceTree();
 
 	// prints tree node by node
 	void print();

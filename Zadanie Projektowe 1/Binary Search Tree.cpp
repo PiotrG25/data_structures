@@ -77,12 +77,16 @@ void BinarySearchTree::remove(int element) {
 	else if (n->left == NULL) removeNodeWithRightSubtree(n, parent);
 	else {
 		Node* maxLeft = n->left;
-		while (maxLeft->right != NULL) maxLeft = maxLeft->right;
+		parent = n;
+		while (maxLeft->right != NULL) {
+			parent = maxLeft;
+			maxLeft = maxLeft->right;
+		}
 		
 		int t = maxLeft->value;
 
-		if (maxLeft->left != NULL) removeNodeWithLeftSubtree(maxLeft);
-		else removeLeaf(maxLeft);
+		if (maxLeft->left != NULL) removeNodeWithLeftSubtree(maxLeft, parent);
+		else removeLeaf(maxLeft, parent);
 
 		n->value = t;
 	}
@@ -146,6 +150,63 @@ bool BinarySearchTree::search(int element) {
 	return false;
 }
 
+
+void BinarySearchTree::rebalanceTree() {
+	if (root == NULL) return;
+
+	Node* n = root, * parent = NULL;
+	do {
+		while (n->left != NULL) {
+			n = rotateRight(n, parent);
+		}
+		parent = n;
+		n = n->right;
+	} while (n != NULL);
+
+	int m = size / 2;
+	if (m * 2 == size) --m;
+
+	while (m > 0) {
+		n = root;
+		parent = NULL;
+		for (int i = 0; i < m; ++i) {
+			n = rotateLeft(n, parent);
+			parent = n;
+			n = n->right;
+		}
+		m /= 2;
+	}
+}
+
+
+BinarySearchTree::Node* BinarySearchTree::rotateRight(Node* n, Node* parent) {
+	Node* l = n->left;
+	n->left = l->right;
+	l->right = n;
+
+	if (parent == NULL) {
+		root = l;
+	}
+	else {
+		if (l->value < parent->value) parent->left = l;
+		else parent->right = l;
+	}
+	return l;
+}
+BinarySearchTree::Node* BinarySearchTree::rotateLeft(Node* n, Node* parent) {
+	Node* r = n->right;
+	n->right = r->left;
+	r->left = n;
+
+	if (parent == NULL) {
+		root = r;
+	}
+	else {
+		if (r->value < parent->value) parent->left = r;
+		else parent->right = r;
+	}
+	return r;
+}
 
 void BinarySearchTree::print() {
 	if (root == NULL) std::cout << "NULL" << std::endl;
