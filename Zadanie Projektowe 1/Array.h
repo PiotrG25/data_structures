@@ -4,7 +4,6 @@
 
 #include <iostream>
 
-#include "Exceptions.h"
 
 class Array {
 	int* arr;

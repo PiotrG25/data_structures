@@ -23,7 +23,7 @@ BinaryHeap::~BinaryHeap() {
 
 
 void BinaryHeap::add(int element) {
-	if (size >= length) throw OUT_OF_SPACE;
+	if (size >= length) throw std::exception();
 
 	arr[size] = element;
 	bubbleUp(size++);
