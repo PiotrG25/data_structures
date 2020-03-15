@@ -4,7 +4,6 @@
 
 #include <iostream>
 
-#include "Exceptions.h"
 
 class BinaryHeap {
 
@@ -19,7 +18,7 @@ public:
 
 
 	// adds element to the heap
-	// throws OUT_OF_SPACE exception if next inserted element would exceed bound of the array
+	// throws exception if next inserted element would exceed bound of the array
 	void add(int element);
 
 	
