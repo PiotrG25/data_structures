@@ -73,9 +73,9 @@ void RedBlackTree::remove(int element) {
 bool RedBlackTree::search(int element) {
 	Node* n = root;
 	while (n != NULL) {
-		if (n->value == element) return true;
-		else if (element < n->value) n = n->left;
-		else n = n->right;
+		if (element < n->value) n = n->left;
+		else if(element > n->value) n = n->right;
+		else return true;
 	}
 	return false;
 }
@@ -132,9 +132,11 @@ RedBlackTree::Node::Node(int value, bool red) {
 }
 
 void RedBlackTree::deleteSubtree(Node* n) {
-	if (n->left != NULL) deleteSubtree(n->left);
-	if (n->right != NULL) deleteSubtree(n->right);
-	delete n;
+	if (n != NULL) {
+		if (n->left != NULL) deleteSubtree(n->left);
+		if (n->right != NULL) deleteSubtree(n->right);
+		delete n;
+	}
 }
 
 

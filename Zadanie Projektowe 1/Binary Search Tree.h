@@ -11,17 +11,19 @@ class BinarySearchTree {
 		int value;
 		Node *left, *right;
 
-		Node(int value) {
-			this->value = value;
-			left = right = NULL;
-		}
+		Node(int value);
 	};
 
 	Node* root;
 	int size;
 
 	// deletes node and all of its children
-	void deleteNode(Node* n);
+	void deleteSubtree(Node* n);
+
+	// REMOVAL cases
+	void removeLeaf(Node* n, Node* parent);
+	void removeNodeWithLeftSubtree(Node* n, Node* parent);
+	void removeNodeWithRightSubtree(Node* n, Node* parent);
 
 public:
 
@@ -34,7 +36,6 @@ public:
 	void add(int element);
 
 	// removes element from the tree
-	// throws NOT_FOUND exception if not found
 	void remove(int element);
 
 	// returns true if element is in the tree

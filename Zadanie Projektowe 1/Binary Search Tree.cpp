@@ -1,23 +1,31 @@
 
 #include "Binary Search Tree.h"
 
+
+BinarySearchTree::Node::Node(int value) {
+	this->value = value;
+	left = right = NULL;
+}
+
+void BinarySearchTree::deleteSubtree(Node* n) {
+	if (n != NULL) {
+		if (n->left != NULL) deleteSubtree(n->left);
+		if (n->right != NULL) deleteSubtree(n->right);
+		delete n;
+	}
+}
+
+
 BinarySearchTree::BinarySearchTree(int* arr, int size) {
 	this->root = NULL;
 	this->size = 0;
 	for (int i = 0; i < size; ++i) add(arr[i]);
 }
+
 BinarySearchTree::~BinarySearchTree() {
-	deleteNode(root);
+	deleteSubtree(root);
 }
 
-void BinarySearchTree::deleteNode(Node* n) {
-	if (n != NULL) {
-		if (n->left != NULL) deleteNode(n->left);
-		if (n->right != NULL) deleteNode(n->right);
-
-		delete n;
-	}
-}
 
 
 void BinarySearchTree::add(int element) {
@@ -121,8 +129,8 @@ bool BinarySearchTree::search(int element) {
 	Node* n = root;
 	while (n != NULL) {
 		if (element < n->value) n = n->left;
-		else if (element == n->value) return true;
-		else n = n->right;
+		else if (element > n->value) n = n->right;
+		else return true;
 	}
 	return false;
 }

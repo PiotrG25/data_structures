@@ -19,7 +19,8 @@ class RedBlackTree {
 	int size;
 
 
-	void deleteSubtree(Node* n); // delete subtree
+	// deletes node and all of its children
+	void deleteSubtree(Node* n);
 
 
 	// ROTATIONS
