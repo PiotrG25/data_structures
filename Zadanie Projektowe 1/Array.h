@@ -23,26 +23,29 @@ public:
 	void addLast(int element);
 
 	// resizes array and adds element at designated index
-	// throws OUT_OF_BOUND exception if index is out of {0, 1, 2, ... S} where S is size before resize
 	void addAt(int element, int index);
 
 
+	// removes first occurence of element
+	void remove(int element);
+
 	// removes element from the first position
-	// throws EMPTY exception if array is empty
 	void removeFirst();
 
 	// removes element from the last position
-	// throws EMPTY exception if array is empty
 	void removeLast();
 
 	// removes element at designated index and resizes array
-	// throws EMPTY exception if array is empty
-	// throws OUT_OF_BOUND exception if index if out of bound
 	void removeAt(int index);
 
 
 	// returns true if element is in the array
 	bool search(int element);
+
+	// returns index of element in the array
+	// -1 if not found
+	int find(int element);
+
 
 	// returns size
 	int getSize();

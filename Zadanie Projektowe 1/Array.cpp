@@ -6,6 +6,7 @@ Array::Array(int* arr, int size) {
 	this->arr = new int[size];
 	for (int i = 0; i < size; ++i) this->arr[i] = arr[i];
 }
+
 Array::~Array() {
 	delete[] arr;
 }
@@ -20,7 +21,9 @@ void Array::addLast(int element) {
 }
 
 void Array::addAt(int element, int index) {
-	if (index < 0 || index > size) throw OUT_OF_BOUND;
+	if (index < 0) addFirst(element);
+	if (index > size) addLast(element);
+
 
 	int* newArr = new int[size + 1];
 	
@@ -34,6 +37,13 @@ void Array::addAt(int element, int index) {
 }
 
 
+void Array::remove(int element) {
+	int i = find(element);
+
+	if (i < 0) return;
+	else removeAt(i);
+}
+
 void Array::removeFirst() {
 	removeAt(0);
 }
@@ -43,8 +53,7 @@ void Array::removeLast() {
 }
 
 void Array::removeAt(int index) {
-	if (size == 0) throw EMPTY;
-	if (index < 0 || index >= size) throw OUT_OF_BOUND;
+	if (index < 0 || index >= size) remove;
 
 	int* newArr = new int[size - 1];
 
@@ -60,6 +69,11 @@ void Array::removeAt(int index) {
 bool Array::search(int element) {
 	for (int i = 0; i < size; ++i) if (arr[i] == element) return true;
 	return false;
+}
+
+int Array::find(int element) {
+	for (int i = 0; i < size; ++i) if (arr[i] == element) return i;
+	return -1;
 }
 
 int Array::getSize() {
