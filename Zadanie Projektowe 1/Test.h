@@ -14,11 +14,15 @@
 #include "AVL Tree.h"
 
 
-int* makeRandomArray(int n);
 
 
 void testArray(int n, int samples);
 
+void testDoublyLinkedList(int n, int samples);
+
+
+// makes random array
+int* makeRandomArray(int n);
 
 // random pisitive integer
 int random();
