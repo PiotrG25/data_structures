@@ -23,7 +23,7 @@ int main() {
 	cin >> samples;
 
 	for (int i = 1;; i <<= 1) {
-		testBinaryHeap(i, samples);
+		testRedBlackTree(i, samples);
 	}
 
 	return 0;
