@@ -402,6 +402,106 @@ void testDoublyLinkedList(int n, int samples) {
 
 }
 
+void testBinarySearchTree(int n, int samples) {
+	std::cout << "Binary Search Tree test for " << n << " elements and " << samples << " samples" << std::endl;
+
+
+	BinarySearchTree* tree;
+	double* sampleResults = new double[samples];
+	double result;
+	std::ofstream os;
+
+
+	// 
+	// add
+
+	for (int i = 0; i < samples; ++i) {
+
+		int* arr = makeRandomArray(n + 1);
+		tree = new BinarySearchTree(arr, n);
+		tree->rebalanceTree();
+
+		auto t1 = std::chrono::high_resolution_clock::now();
+		tree->add(arr[n]);
+		tree->rebalanceTree();
+		auto t2 = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> t = t2 - t1;
+
+		delete tree;
+		sampleResults[i] = t.count();
+	}
+
+	result = 0;
+	for (int i = 0; i < samples; ++i) result += sampleResults[i];
+	result /= samples;
+	std::cout << std::setw(20) << "add: " << result << std::endl;
+
+
+	os.open("add.txt", std::ios::out | std::ios::app);
+	os << std::fixed << std::setprecision(12) << result << std::endl;
+	os.close();
+
+
+	// 
+	// remove
+
+	for (int i = 0; i < samples; ++i) {
+
+		int* arr = makeRandomArray(n + 1);
+		tree = new BinarySearchTree(arr, n);
+		tree->rebalanceTree();
+
+		auto t1 = std::chrono::high_resolution_clock::now();
+		tree->remove(arr[random() % n]);
+		tree->rebalanceTree();
+		auto t2 = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> t = t2 - t1;
+
+		delete tree;
+		sampleResults[i] = t.count();
+	}
+
+	result = 0;
+	for (int i = 0; i < samples; ++i) result += sampleResults[i];
+	result /= samples;
+	std::cout << std::setw(20) << "remove: " << result << std::endl;
+
+
+	os.open("remove.txt", std::ios::out | std::ios::app);
+	os << std::fixed << std::setprecision(12) << result << std::endl;
+	os.close();
+
+
+	// 
+	// search
+
+	for (int i = 0; i < samples; ++i) {
+
+		int* arr = makeRandomArray(n + 1);
+		tree = new BinarySearchTree(arr, n);
+		tree->rebalanceTree();
+
+		auto t1 = std::chrono::high_resolution_clock::now();
+		tree->search(arr[random() % n]);
+		auto t2 = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> t = t2 - t1;
+
+		delete tree;
+		sampleResults[i] = t.count();
+	}
+
+	result = 0;
+	for (int i = 0; i < samples; ++i) result += sampleResults[i];
+	result /= samples;
+	std::cout << std::setw(20) << "search: " << result << std::endl;
+
+
+	os.open("search.txt", std::ios::out | std::ios::app);
+	os << std::fixed << std::setprecision(12) << result << std::endl;
+	os.close();
+}
+
+
 
 int random() {
 	return (rand() << 16) + (rand() << 1) + (rand() % 2);

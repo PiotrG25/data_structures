@@ -23,7 +23,7 @@ int main() {
 	cin >> samples;
 
 	for (int i = 1;; i <<= 1) {
-		testArray(i, samples);
+		testBinarySearchTree(i, samples);
 	}
 
 	return 0;

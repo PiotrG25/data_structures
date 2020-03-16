@@ -20,6 +20,13 @@ void testArray(int n, int samples);
 
 void testDoublyLinkedList(int n, int samples);
 
+void testBinaryHeap(int n, int samples);
+
+void testBinarySearchTree(int n, int samples);
+
+void testRedBlackTree(int n, int samples);
+
+void testAVLTree(int n, int samples);
 
 // makes random array
 int* makeRandomArray(int n);
