@@ -7,6 +7,11 @@ Array::Array(int* arr, int size) {
 	for (int i = 0; i < size; ++i) this->arr[i] = arr[i];
 }
 
+Array::Array() {
+	size = 0;
+	arr = new int[0];
+}
+
 Array::~Array() {
 	delete[] arr;
 }

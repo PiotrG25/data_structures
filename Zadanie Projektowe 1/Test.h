@@ -1,6 +1,9 @@
+#ifndef TEST_H
+#define TEST_H
 
 #include <iostream>
-#include <cstdlib>
+#include <iomanip>
+#include <chrono>
 #include <fstream>
 
 #include "Array.h"
@@ -10,20 +13,15 @@
 #include "Red Black Tree.h"
 #include "AVL Tree.h"
 
-#include "Test.h"
 
-using namespace std;
-
-
-int main() {
-
-	cout << "Hello World" << endl;
-
-	for (int i = 1;; i <<= 1) {
-		testArray(i, 30);
-	}
-
-	return 0;
-}
+int* makeRandomArray(int n);
 
 
+void testArray(int n, int samples);
+
+
+// random pisitive integer
+int random();
+
+
+#endif

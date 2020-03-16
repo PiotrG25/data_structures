@@ -12,6 +12,7 @@ class Array {
 public:
 
 	Array(int* arr, int size);
+	Array();
 	~Array();
 
 
