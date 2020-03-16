@@ -27,6 +27,7 @@ void testArray(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete array;
 		sampleResults[i] = t.count();
 	}
 
@@ -52,6 +53,7 @@ void testArray(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete array;
 		sampleResults[i] = t.count();
 	}
 
@@ -77,6 +79,7 @@ void testArray(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete array;
 		sampleResults[i] = t.count();
 	}
 
@@ -103,6 +106,7 @@ void testArray(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete array;
 		sampleResults[i] = t.count();
 	}
 
@@ -128,6 +132,7 @@ void testArray(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete array;
 		sampleResults[i] = t.count();
 	}
 
@@ -153,6 +158,7 @@ void testArray(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete array;
 		sampleResults[i] = t.count();
 	}
 
@@ -179,6 +185,7 @@ void testArray(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete array;
 		sampleResults[i] = t.count();
 	}
 
@@ -215,6 +222,7 @@ void testDoublyLinkedList(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete list;
 		sampleResults[i] = t.count();
 	}
 
@@ -239,6 +247,7 @@ void testDoublyLinkedList(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete list;
 		sampleResults[i] = t.count();
 	}
 
@@ -263,6 +272,7 @@ void testDoublyLinkedList(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete list;
 		sampleResults[i] = t.count();
 	}
 
@@ -289,6 +299,7 @@ void testDoublyLinkedList(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete list;
 		sampleResults[i] = t.count();
 	}
 
@@ -313,6 +324,7 @@ void testDoublyLinkedList(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete list;
 		sampleResults[i] = t.count();
 	}
 
@@ -337,6 +349,7 @@ void testDoublyLinkedList(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete list;
 		sampleResults[i] = t.count();
 	}
 
@@ -361,6 +374,7 @@ void testDoublyLinkedList(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete list;
 		sampleResults[i] = t.count();
 	}
 
@@ -387,6 +401,7 @@ void testDoublyLinkedList(int n, int samples) {
 		auto t2 = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> t = t2 - t1;
 
+		delete list;
 		sampleResults[i] = t.count();
 	}
 
