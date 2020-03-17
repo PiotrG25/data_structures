@@ -34,7 +34,7 @@ void AVLTree::add(int element) {
 }
 
 void AVLTree::remove(int element) {
-	if (root != NULL) remove(root, NULL, element);
+	remove(root, NULL, element);
 }
 
 bool AVLTree::search(int element) {
@@ -51,6 +51,8 @@ bool AVLTree::search(int element) {
 
 
 void AVLTree::remove(Node* n, Node* parent, int value) {
+	if (n == NULL) return; // if value is not in the tree
+
 	if (value < n->value) remove(n->left, n, value);
 	else if (value > n->value) remove(n->right, n, value);
 	else {
@@ -62,6 +64,7 @@ void AVLTree::remove(Node* n, Node* parent, int value) {
 			}
 
 			delete n;
+			n = NULL;
 			--size;
 		}
 		else if (n->left == NULL) {
@@ -72,6 +75,7 @@ void AVLTree::remove(Node* n, Node* parent, int value) {
 			}
 
 			delete n;
+			n = NULL;
 			--size;
 		}
 		else if (n->right == NULL) {
@@ -82,6 +86,7 @@ void AVLTree::remove(Node* n, Node* parent, int value) {
 			}
 
 			delete n;
+			n = NULL;
 			--size;
 		}
 		else {
@@ -93,6 +98,8 @@ void AVLTree::remove(Node* n, Node* parent, int value) {
 			n->value = t;
 		}
 	}
+
+	if (n == NULL) return; // after n is removed
 
 	update(n);
 	rebalance(n, parent);
@@ -208,3 +215,25 @@ AVLTree::Node* AVLTree::rightRightCase(Node* n) {
 
 	return n;
 }
+
+
+void AVLTree::print() {
+	if (root == NULL) std::cout << "NULL" << std::endl;
+	else printNode(root);
+}
+
+void AVLTree::printNode(Node* n) {
+	std::cout << n->value << ' ';
+
+	if (n->left != NULL) std::cout << n->left->value << ' ';
+	else std::cout << "NULL" << ' ';
+
+	if (n->right != NULL) std::cout << n->right->value << ' ';
+	else std::cout << "NULL" << ' ';
+
+	std::cout << std::endl;
+
+	if (n->left != NULL) printNode(n->left);
+	if (n->right != NULL) printNode(n->right);
+}
+

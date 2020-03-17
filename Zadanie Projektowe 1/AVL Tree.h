@@ -61,6 +61,16 @@ public:
 
 	// returns true if element is in the tree
 	bool search(int element);
+
+
+	// prints tree node by node
+	void print();
+
+	// prints value of the node, left child and right child
+	// NULL if node does not exist
+	// calls printNode for non NULL children
+	void printNode(Node* n);
+
 };
 
 #endif
