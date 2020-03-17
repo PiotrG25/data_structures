@@ -11,7 +11,7 @@ class AVLTree {
 		Node* left, * right;
 
 		// contains the difference in height of the right subtree and the left subtree
-		int balancedFactor;
+		int balanceFactor;
 
 		// contains the number of layers below this node
 		int height;
@@ -30,9 +30,9 @@ class AVLTree {
 
 	// INSERTION cases
 
-	void insert(Node* n, int value);
-	void updane(Node* n);
-	void rebalance(Node* n);
+	void insert(Node* n, Node* parent, int value);
+	void update(Node* n);
+	void rebalance(Node* n, Node* parent);
 
 	// return the top node
 	Node* rotateLeft(Node* n);
