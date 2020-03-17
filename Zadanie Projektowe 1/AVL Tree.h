@@ -28,12 +28,15 @@ class AVLTree {
 	void deleteSubtree(Node* n);
 
 
-	// INSERTION cases
-
+	// INSERTION
 	void insert(Node* n, Node* parent, int value);
 	void update(Node* n);
 	void rebalance(Node* n, Node* parent);
 
+	// REMOVAL
+	void remove(Node* n, Node* parent, int value);
+
+	// ROTATIONS
 	// return the top node
 	Node* rotateLeft(Node* n);
 	Node* rotateRight(Node* n);
@@ -42,7 +45,6 @@ class AVLTree {
 	Node* leftRightCase(Node* n);
 	Node* rightLeftCase(Node* n);
 	Node* rightRightCase(Node* n);
-
 
 public:
 

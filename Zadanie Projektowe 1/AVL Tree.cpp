@@ -34,7 +34,7 @@ void AVLTree::add(int element) {
 }
 
 void AVLTree::remove(int element) {
-
+	if (root != NULL) remove(root, NULL, element);
 }
 
 bool AVLTree::search(int element) {
@@ -50,6 +50,53 @@ bool AVLTree::search(int element) {
 }
 
 
+void AVLTree::remove(Node* n, Node* parent, int value) {
+	if (value < n->value) remove(n->left, n, value);
+	else if (value > n->value) remove(n->right, n, value);
+	else {
+		if (n->left == NULL && n->right == NULL) {
+			if (parent == NULL) root = NULL;
+			else {
+				if (n->value < parent->value) parent->left = NULL;
+				else parent->right = NULL;
+			}
+
+			delete n;
+			--size;
+		}
+		else if (n->left == NULL) {
+			if (parent == NULL) root = n->right;
+			else {
+				if (n->value < parent->value) parent->left = n->right;
+				else parent->right = n->right;
+			}
+
+			delete n;
+			--size;
+		}
+		else if (n->right == NULL) {
+			if (parent == NULL) root = n->left;
+			else {
+				if (n->value < parent->value) parent->left = n->left;
+				else parent->right = n->left;
+			}
+
+			delete n;
+			--size;
+		}
+		else {
+			Node* maxLeft = n->left;
+			while (maxLeft->right != NULL) maxLeft = maxLeft->right;
+
+			int t = maxLeft->value;
+			remove(n->left, n, t);
+			n->value = t;
+		}
+	}
+
+	update(n);
+	rebalance(n, parent);
+}
 
 void AVLTree::insert(Node* n, Node* parent, int value) {
 	if (value < n->value) {
@@ -95,10 +142,16 @@ void AVLTree::rebalance(Node* n, Node* parent) {
 		if (n->right->balanceFactor == -1) top = rightLeftCase(n);
 		else top = rightRightCase(n);
 	}
+	else return;
 
 	if (top != NULL) {
-		if (top->value < parent->value) parent->left = top;
-		else parent->right = top;
+		if (parent == NULL) {
+			root = top;
+		}
+		else {
+			if (top->value < parent->value) parent->left = top;
+			else parent->right = top;
+		}
 	}
 }
 
@@ -107,12 +160,6 @@ AVLTree::Node* AVLTree::rotateLeft(Node* n) {
 	n->right = r->left;
 	r->left = n;
 
-	++r->height;
-	--r->balanceFactor;
-
-	--n->height;
-	--n->balanceFactor;
-
 	return r;
 }
 AVLTree::Node* AVLTree::rotateRight(Node* n) {
@@ -120,26 +167,44 @@ AVLTree::Node* AVLTree::rotateRight(Node* n) {
 	n->left = l->right;
 	l->right = n;
 
-	++l->height;
-	++l->balanceFactor;
-
-	++n->balanceFactor;
-	--n->height;
-
 	return l;
 }
 
 AVLTree::Node* AVLTree::leftLeftCase(Node* n) {
-	return rotateRight(n);
+	n = rotateRight(n);
+
+	n->balanceFactor = n->left->balanceFactor = n->right->balanceFactor = 0;
+	n->height = n->left->height + 1;
+	n->right->height = n->left->height;
+
+	return n;
 }
 AVLTree::Node* AVLTree::leftRightCase(Node* n) {
 	n->left = rotateLeft(n->left);
-	return rotateRight(n);
+	n = rotateRight(n);
+
+	n->balanceFactor = n->left->balanceFactor = n->right->balanceFactor = 0;
+	n->left->height = n->right->height = n->height;
+	++n->height;
+
+	return n;
 }
 AVLTree::Node* AVLTree::rightLeftCase(Node* n) {
 	n->right = rotateRight(n->right);
-	return rotateLeft(n);
+	n = rotateLeft(n);
+
+	n->balanceFactor = n->left->balanceFactor = n->right->balanceFactor = 0;
+	n->left->height = n->right->height = n->height;
+	++n->height;
+
+	return n;
 }
 AVLTree::Node* AVLTree::rightRightCase(Node* n) {
-	return rotateLeft(n);
+	n = rotateLeft(n);
+
+	n->balanceFactor = n->left->balanceFactor = n->right->balanceFactor = 0;
+	n->height = n->right->height + 1;
+	n->left->height = n->right->height;
+
+	return n;
 }
