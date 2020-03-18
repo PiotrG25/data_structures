@@ -28,14 +28,14 @@ void useAVLTree();
 int main() {
 
 	cout << "Hello World" << endl;
+
 	/*
-	int samples, interval;
-	cin >> samples >> interval;
-	for (int i = 0;; i += interval) {
-		testDoublyLinkedList(i, samples);
+	int samples, interval, start, J;
+	cin >> samples >> start >> interval >> J;
+	for (int i = start, j = 0; j < J; i += interval) {
+		testAVLTree(i, samples);
 	}
-	return 0;
-	*/
+	return 0;*/
 
 	int a;
 	string menu = "\
