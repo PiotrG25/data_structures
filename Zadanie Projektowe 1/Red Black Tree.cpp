@@ -122,6 +122,10 @@ bool RedBlackTree::isCorrectTree() {
 }
 
 
+int RedBlackTree::getSize() {
+	return size;
+}
+
 // PRIVATE ----------------------------------------------------------------------------------------
 
 

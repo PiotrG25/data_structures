@@ -231,3 +231,8 @@ void BinarySearchTree::printNode(Node* n) {
 }
 
 
+int BinarySearchTree::getSize() {
+	return size;
+}
+
+

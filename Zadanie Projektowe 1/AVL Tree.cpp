@@ -237,3 +237,6 @@ void AVLTree::printNode(Node* n) {
 	if (n->right != NULL) printNode(n->right);
 }
 
+int AVLTree::getSize() {
+	return size;
+}

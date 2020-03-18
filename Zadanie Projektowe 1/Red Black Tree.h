@@ -111,6 +111,10 @@ public:
 
 	// checks tree invariant
 	bool isCorrectTree();
+
+
+	// returns size
+	int getSize();
 };
 
 #endif

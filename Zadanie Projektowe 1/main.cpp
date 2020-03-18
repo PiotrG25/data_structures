@@ -102,9 +102,86 @@ void useArray() {
 		\r[10] - usun element na wyznaczonym indeksie z tablicy\n\
 		\r[11] - sprawdz czy element znajduje sie w tablicy\n\
 		\r";
+
 	cout << menu;
 
+	int a;
+	while (true) {
+		cout << "Tablica dynamiczna o rozmiarze: " << array->getSize() << endl;
+		cout << "wybor: ";
+		cin >> a;
 
+		if (a == 0) break;
+		else if (a == 1) {
+			cout << menu;
+		}
+		else if (a == 2) {
+			array->print();
+		}
+		else if (a == 3) {
+			int n = 0;
+			int* arr = readFromFile(n);
+			delete array;
+			array = new Array(arr, n);
+
+			array->print();
+		}
+		else if (a == 4) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			array->addFirst(a);
+
+			array->print();
+		}
+		else if (a == 5) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			array->addLast(a);
+
+			array->print();
+		}
+		else if (a == 6) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			int i;
+			cout << "Podaj indeks: ";
+			cin >> i;
+			array->addAt(a, i);
+
+			array->print();
+		}
+		else if (a == 7) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			array->remove(a);
+
+			array->print();
+		}
+		else if (a == 8) {
+			array->removeFirst();
+
+			array->print();
+		}
+		else if (a == 9) {
+			array->removeLast();
+
+			array->print();
+		}
+		else if (a == 10) {
+			int i;
+			cout << "Podaj indeks: ";
+			cin >> i;
+			array->removeAt(i);
+
+			array->print();
+		}
+		else if (a == 11) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			if (array->search(a)) cout << "Element znajduje sie w tablicy" << endl;
+			else cout << "Element nie znajduje sie w tablicy" << endl;
+		}
+	}
 }
 
 void useDoublyLinkedList() {
@@ -123,9 +200,104 @@ void useDoublyLinkedList() {
 		\r[10] - usun element na wyznaczonym indeksie z listy\n\
 		\r[11] - sprawdz czy element znajduje sie w liscie\n\
 		\r";
+
 	cout << menu;
 
+	int a;
+	while (true) {
+		cout << "Lista dwukierunkowa o rozmiarze: " << list->getSize() << endl;
+		cout << "wybor: ";
+		cin >> a;
 
+		if (a == 0) break;
+		else if (a == 1) {
+			cout << menu;
+		}
+		else if (a == 2) {
+			cout << "Lista wyswietlana jest dwukrotnie" << endl;
+			cout << "za pierwszym razem od poczatku do konca a za drugim od konca do poczatku" << endl;
+			list->print();
+		}
+		else if (a == 3) {
+			int n = 0;
+			int* arr = readFromFile(n);
+			delete list;
+			list = new DoublyLinkedList(arr, n);
+
+			cout << "Lista wyswietlana jest dwukrotnie" << endl;
+			cout << "za pierwszym razem od poczatku do konca a za drugim od konca do poczatku" << endl;
+			list->print();
+		}
+		else if (a == 4) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			list->addFirst(a);
+
+			cout << "Lista wyswietlana jest dwukrotnie" << endl;
+			cout << "za pierwszym razem od poczatku do konca a za drugim od konca do poczatku" << endl;
+			list->print();
+		}
+		else if (a == 5) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			list->addLast(a);
+
+			cout << "Lista wyswietlana jest dwukrotnie" << endl;
+			cout << "za pierwszym razem od poczatku do konca a za drugim od konca do poczatku" << endl;
+			list->print();
+		}
+		else if (a == 6) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			int i;
+			cout << "Podaj indeks: ";
+			cin >> i;
+			list->addAt(a, i);
+
+			cout << "Lista wyswietlana jest dwukrotnie" << endl;
+			cout << "za pierwszym razem od poczatku do konca a za drugim od konca do poczatku" << endl;
+			list->print();
+		}
+		else if (a == 7) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			list->remove(a);
+
+			cout << "Lista wyswietlana jest dwukrotnie" << endl;
+			cout << "za pierwszym razem od poczatku do konca a za drugim od konca do poczatku" << endl;
+			list->print();
+		}
+		else if (a == 8) {
+			list->removeFirst();
+
+			cout << "Lista wyswietlana jest dwukrotnie" << endl;
+			cout << "za pierwszym razem od poczatku do konca a za drugim od konca do poczatku" << endl;
+			list->print();
+		}
+		else if (a == 9) {
+			list->removeLast();
+
+			cout << "Lista wyswietlana jest dwukrotnie" << endl;
+			cout << "za pierwszym razem od poczatku do konca a za drugim od konca do poczatku" << endl;
+			list->print();
+		}
+		else if (a == 10) {
+			int i;
+			cout << "Podaj indeks: ";
+			cin >> i;
+			list->removeAt(i);
+
+			cout << "Lista wyswietlana jest dwukrotnie" << endl;
+			cout << "za pierwszym razem od poczatku do konca a za drugim od konca do poczatku" << endl;
+			list->print();
+		}
+		else if (a == 11) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			if (list->search(a)) cout << "Element znajduje sie w liscie" << endl;
+			else cout << "Element nie znajduje sie w liscie" << endl;
+		}
+	}
 }
 
 void useBinaryHeap() {
@@ -139,13 +311,69 @@ void useBinaryHeap() {
 		\r[5] - usun element z kopca\n\
 		\r[6] - sprawdz czy element jest w kopcu\n\
 		\r";
+
 	cout << menu;
 
+	int a;
+	while (true) {
+		cout << "Binarny kopiec zupelny o rozmiarze: " << heap->getSize() << endl;
+		cout << "wybor: ";
+		cin >> a;
 
+		if (a == 0) break;
+		else if (a == 1) {
+			cout << menu;
+		}
+		else if (a == 2) {
+			cout << "Kopiec wyswietlany jest jako tablica zawierajaca wszystkie jego wezly" << endl;
+			cout << "element o indeksie 0 jest korzeniem, kolejne 2 elementy sa jego dziecmi, kolejne 4 wnukami itd." << endl;
+			heap->print();
+		}
+		else if (a == 3) {
+			int n = 0;
+			int* arr = readFromFile(n);
+			delete heap;
+			heap = new BinaryHeap(arr, n);
+
+			cout << "Kopiec wyswietlany jest jako tablica zawierajaca wszystkie jego wezly" << endl;
+			cout << "element o indeksie 0 jest korzeniem, kolejne 2 elementy sa jego dziecmi, kolejne 4 wnukami itd." << endl;
+			heap->print();
+		}
+		else if (a == 4) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			try {
+				heap->add(a);
+			}
+			catch (exception e) {
+				cout << "Przekroczono rozmiar tablicy, nie mozna dodac kolejnego elementu" << endl;
+			}
+
+			cout << "Kopiec wyswietlany jest jako tablica zawierajaca wszystkie jego wezly" << endl;
+			cout << "element o indeksie 0 jest korzeniem, kolejne 2 elementy sa jego dziecmi, kolejne 4 wnukami itd." << endl;
+			heap->print();
+
+		}
+		else if (a == 5) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			heap->remove(a);
+
+			cout << "Kopiec wyswietlany jest jako tablica zawierajaca wszystkie jego wezly" << endl;
+			cout << "element o indeksie 0 jest korzeniem, kolejne 2 elementy sa jego dziecmi, kolejne 4 wnukami itd." << endl;
+			heap->print();
+		}
+		else if (a == 6) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			if (heap->search(a)) cout << "Element znajduje sie w kopcu" << endl;
+			else cout << "Element nie znajduje sie w kopcu" << endl;
+		}
+	}
 }
 
 void useBinarySearchTree() {
-	BinarySearchTree* binarySearchTree = new BinarySearchTree(NULL, 0);
+	BinarySearchTree* tree = new BinarySearchTree(NULL, 0);
 	string menu = "\
 		\r[0] - powrot do menu glownego\n\
 		\r[1] - wyswietl menu\n\
@@ -156,13 +384,71 @@ void useBinarySearchTree() {
 		\r[6] - sprawdz czy element jest w drzewie\n\
 		\r[7] - przywroc rownowage w drzewie\n\
 		\r";
+
 	cout << menu;
 
+	int a;
+	while (true) {
+		cout << "Binarne drzewo poszukiwan o rozmiarze: " << tree->getSize() << endl;
+		cout << "wybor: ";
+		cin >> a;
 
+		if (a == 0) break;
+		else if (a == 1) {
+			cout << menu;
+		}
+		else if (a == 2) {
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla i wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+		}
+		else if (a == 3) {
+			int n = 0;
+			int* arr = readFromFile(n);
+			delete tree;
+			tree = new BinarySearchTree(arr, n);
+
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla i wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+		}
+		else if (a == 4) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			tree->add(a);
+
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla i wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+
+		}
+		else if (a == 5) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			tree->remove(a);
+
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla i wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+		}
+		else if (a == 6) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			if (tree->search(a)) cout << "Element znajduje sie w drzewie" << endl;
+			else cout << "Element nie znajduje sie w drzewie" << endl;
+		}
+		else if (a == 7) {
+			tree->rebalanceTree();
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla i wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+			
+		}
+	}
 }
 
 void useRedBlackTree() {
-	RedBlackTree* redBlackTree = new RedBlackTree(NULL, 0);
+	RedBlackTree* tree = new RedBlackTree(NULL, 0);
 	string menu = "\
 		\r[0] - powrot do menu glownego\n\
 		\r[1] - wyswietl menu\n\
@@ -172,13 +458,64 @@ void useRedBlackTree() {
 		\r[5] - usun element z drzewa\n\
 		\r[6] - sprawdz czy element jest w drzewie\n\
 		\r";
+
 	cout << menu;
 
+	int a;
+	while (true) {
+		cout << "Drzewo czerwono czarne o rozmiarze: " << tree->getSize() << endl;
+		cout << "wybor: ";
+		cin >> a;
 
+		if (a == 0) break;
+		else if (a == 1) {
+			cout << menu;
+		}
+		else if (a == 2) {
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla, jego kolor i kolejno wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+		}
+		else if (a == 3) {
+			int n = 0;
+			int* arr = readFromFile(n);
+			delete tree;
+			tree = new RedBlackTree(arr, n);
+
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla, jego kolor i kolejno wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+		}
+		else if (a == 4) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			tree->add(a);
+
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla, jego kolor i kolejno wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+
+		}
+		else if (a == 5) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			tree->remove(a);
+
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla, jego kolor i kolejno wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+		}
+		else if (a == 6) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			if (tree->search(a)) cout << "Element znajduje sie w drzewie" << endl;
+			else cout << "Element nie znajduje sie w drzewie" << endl;
+		}
+	}
 }
 
 void useAVLTree() {
-	AVLTree* avlTree = new AVLTree(NULL, 0);
+	AVLTree* tree = new AVLTree(NULL, 0);
 	string menu = "\
 		\r[0] - powrot do menu glownego\n\
 		\r[1] - wyswietl menu\n\
@@ -191,6 +528,56 @@ void useAVLTree() {
 
 	cout << menu;
 
+	int a;
+	while (true) {
+		cout << "Drzewo AVL o rozmiarze: " << tree->getSize() << endl;
+		cout << "wybor: ";
+		cin >> a;
 
+		if (a == 0) break;
+		else if (a == 1) {
+			cout << menu;
+		}
+		else if (a == 2) {
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla i wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+		}
+		else if (a == 3) {
+			int n = 0;
+			int* arr = readFromFile(n);
+			delete tree;
+			tree = new AVLTree(arr, n);
+
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla i wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+		}
+		else if (a == 4) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			tree->add(a);
+
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla i wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+
+		}
+		else if (a == 5) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			tree->remove(a);
+
+			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Kazda linijka zawiera wartosc wezla i wartosci jego lewego i prawego dziecka" << endl;
+			tree->print();
+		}
+		else if (a == 6) {
+			cout << "Podaj wartosc elementu: ";
+			cin >> a;
+			if (tree->search(a)) cout << "Element znajduje sie w drzewie" << endl;
+			else cout << "Element nie znajduje sie w drzewie" << endl;
+		}
+	}
 }
 

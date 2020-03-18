@@ -61,6 +61,10 @@ public:
 	// calls printNode for non NULL children
 	void printNode(Node* n);
 
+
+	// returns size
+	int getSize();
+
 };
 
 #endif
