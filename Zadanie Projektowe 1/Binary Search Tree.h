@@ -50,7 +50,7 @@ public:
 	bool search(int element);
 
 
-	// rebalances tree using DSW slgorithm
+	// rebalances tree using DSW algorithm
 	void rebalanceTree();
 
 	// prints tree node by node

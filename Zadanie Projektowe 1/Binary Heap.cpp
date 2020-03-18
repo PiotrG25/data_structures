@@ -5,7 +5,7 @@
 BinaryHeap::BinaryHeap(int* arr, int size) {
 
 	// array without resizing requires more space
-	length = 2 * size + 100;
+	length = size + 100;
 	this->arr = new int[length];
 
 	this->size = size;
