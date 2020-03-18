@@ -18,14 +18,12 @@ using namespace std;
 int main() {
 
 	cout << "Hello World" << endl;
-	
+
 	int samples;
 	cin >> samples;
-
-	for (int i = 1;; i <<= 1) {
-		testAVLTree(i, samples);
+	for (int i = 1;; i <<= 2) {
+		testDoublyLinkedList(i, samples);
 	}
-
 
 	return 0;
 }

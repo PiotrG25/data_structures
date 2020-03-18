@@ -27,30 +27,43 @@ DoublyLinkedList::DoublyLinkedList(int* arr, int size) {
 
 
 void DoublyLinkedList::addFirst(int element) {
-	addAt(element, 0);
-}
-
-void DoublyLinkedList::addLast(int element) {
-	addAt(element, size);
-}
-
-void DoublyLinkedList::addAt(int element, int index) {
-	if (index < 0) addFirst(element);
-	else if (index > size) addLast(element);
-
-
 	if (size == 0) {
 		head = tail = new Node(element);
 	}
-	else if (index == 0) {
+	else {
 		head->left = new Node(element);
 		head->left->right = head;
 		head = head->left;
 	}
-	else if (index == size) {
+
+	++size;
+}
+
+void DoublyLinkedList::addLast(int element) {
+	if (size == 0) {
+		head = tail = new Node(element);
+	}
+	else {
 		tail->right = new Node(element);
 		tail->right->left = tail;
 		tail = tail->right;
+	}
+
+	++size;
+}
+
+void DoublyLinkedList::addAt(int element, int index) {
+	if (index <= 0) {
+		addFirst(element);
+		return;
+	}
+	else if (index >= size) {
+		addLast(element);
+		return;
+	}
+
+	if (size == 0) {
+		head = tail = new Node(element);
 	}
 	else {
 		Node* n = head;
@@ -67,11 +80,33 @@ void DoublyLinkedList::addAt(int element, int index) {
 
 
 void DoublyLinkedList::removeFirst() {
-	removeAt(0);
+	if (size == 0) return;
+	if (head->right == NULL) {
+		delete head;
+		head = tail = NULL;
+	}
+	else {
+		head = head->right;
+		delete head->left;
+		head->left = NULL;
+	}
+
+	--size;
 }
 
 void DoublyLinkedList::removeLast() {
-	removeAt(size - 1);
+	if (size == 0);
+	if (tail->left == NULL) {
+		delete tail;
+		head = tail = NULL;
+	}
+	else {
+		tail = tail->left;
+		delete tail->right;
+		tail->right = NULL;
+	}
+
+	--size;
 }
 
 void DoublyLinkedList::removeAt(int index) {
