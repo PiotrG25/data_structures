@@ -26,7 +26,8 @@ void BinaryHeap::add(int element) {
 	if (size >= length) throw std::exception();
 
 	arr[size] = element;
-	bubbleUp(size++);
+	bubbleUp(size);
+	++size;
 }
 
 void BinaryHeap::remove(int element) {
@@ -49,7 +50,7 @@ void BinaryHeap::bubbleUp(int index) {
 	if (index <= 0) return;
 
 	int parent = getParentIndex(index);
-	while (arr[parent] < arr[index]) {
+	while (parent >= 0 && arr[parent] < arr[index]) {
 		int t = arr[parent];
 		arr[parent] = arr[index];
 		arr[index] = t;
@@ -128,7 +129,9 @@ int BinaryHeap::getSize() {
 
 
 void BinaryHeap::print() {
+	std::cout << '[';
 	for (int i = 1; i < size; ++i) std::cout << arr[i - 1] << ' ';
-	std::cout << arr[size - 1] << std::endl;
+	if(size > 0) std::cout << arr[size - 1];
+	std::cout << ']' << std::endl;
 }
 

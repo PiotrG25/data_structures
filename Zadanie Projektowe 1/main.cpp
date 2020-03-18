@@ -29,11 +29,12 @@ int main() {
 
 	cout << "Hello World" << endl;
 	/*
-	int samples;
-	cin >> samples;
-	for (int i = 1;; i <<= 2) {
+	int samples, interval;
+	cin >> samples >> interval;
+	for (int i = 0;; i += interval) {
 		testDoublyLinkedList(i, samples);
 	}
+	return 0;
 	*/
 
 	int a;
@@ -472,7 +473,7 @@ void useRedBlackTree() {
 			cout << menu;
 		}
 		else if (a == 2) {
-			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Drzewo wyswietlane jest wezel po wezle zaczynajac od korzenia" << endl;
 			cout << "Kazda linijka zawiera wartosc wezla, jego kolor i kolejno wartosci jego lewego i prawego dziecka" << endl;
 			tree->print();
 		}
@@ -482,7 +483,7 @@ void useRedBlackTree() {
 			delete tree;
 			tree = new RedBlackTree(arr, n);
 
-			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Drzewo wyswietlane jest wezel po wezle zaczynajac od korzenia" << endl;
 			cout << "Kazda linijka zawiera wartosc wezla, jego kolor i kolejno wartosci jego lewego i prawego dziecka" << endl;
 			tree->print();
 		}
@@ -491,7 +492,7 @@ void useRedBlackTree() {
 			cin >> a;
 			tree->add(a);
 
-			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Drzewo wyswietlane jest wezel po wezle zaczynajac od korzenia" << endl;
 			cout << "Kazda linijka zawiera wartosc wezla, jego kolor i kolejno wartosci jego lewego i prawego dziecka" << endl;
 			tree->print();
 
@@ -501,7 +502,7 @@ void useRedBlackTree() {
 			cin >> a;
 			tree->remove(a);
 
-			cout << "Drzewo wyswietlane jest weze po wezle zaczynajac od korzenia" << endl;
+			cout << "Drzewo wyswietlane jest wezel po wezle zaczynajac od korzenia" << endl;
 			cout << "Kazda linijka zawiera wartosc wezla, jego kolor i kolejno wartosci jego lewego i prawego dziecka" << endl;
 			tree->print();
 		}

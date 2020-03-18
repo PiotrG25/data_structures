@@ -91,9 +91,6 @@ void RedBlackTree::printNode(Node* n) {
 	if (n->red) std::cout << 'R' << ' ';
 	else std::cout << 'B' << ' ';
 
-	if (n->parent == NULL) std::cout << "NULL" << ' ';
-	else std::cout << n->parent->value << ' ';
-
 	if (n->left == NULL) std::cout << "NULL" << ' ';
 	else std::cout << n->left->value << ' ';
 

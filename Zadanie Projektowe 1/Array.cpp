@@ -26,8 +26,14 @@ void Array::addLast(int element) {
 }
 
 void Array::addAt(int element, int index) {
-	if (index < 0) addFirst(element);
-	if (index > size) addLast(element);
+	if (index < 0) {
+		addFirst(element);
+		return;
+	}
+	if (index > size) {
+		addLast(element);
+		return;
+	}
 
 
 	int* newArr = new int[size + 1];
@@ -86,8 +92,10 @@ int Array::getSize() {
 }
 
 void Array::print() {
+	std::cout << '[';
 	for (int i = 0; i < size - 1; ++i) std::cout << arr[i] << ' ';
 	if (size > 0) std::cout << arr[size - 1];
+	std::cout << ']';
 	std::cout << std::endl;
 }
 

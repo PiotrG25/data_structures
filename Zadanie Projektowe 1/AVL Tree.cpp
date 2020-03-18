@@ -29,7 +29,10 @@ AVLTree::~AVLTree() {
 
 
 void AVLTree::add(int element) {
-	if (root == NULL) root = new Node(element);
+	if (root == NULL) {
+		root = new Node(element);
+		++size;
+	}
 	else insert(root, NULL, element);
 }
 
@@ -51,7 +54,7 @@ bool AVLTree::search(int element) {
 
 
 void AVLTree::remove(Node* n, Node* parent, int value) {
-	if (n == NULL) return; // if value is not in the tree
+	if (n == NULL) return; // tree is empty
 
 	if (value < n->value) remove(n->left, n, value);
 	else if (value > n->value) remove(n->right, n, value);
@@ -120,7 +123,7 @@ void AVLTree::insert(Node* n, Node* parent, int value) {
 			++size;
 		}
 	}
-	else return;
+	else return; // only unique values
 
 	update(n);
 	rebalance(n, parent);

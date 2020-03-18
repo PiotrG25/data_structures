@@ -170,15 +170,18 @@ int DoublyLinkedList::getSize() {
 
 void DoublyLinkedList::print() {
 	Node* n = head;
-
+	std::cout << '[';
 	for (int i = 0; i < size - 1; ++i, n = n->right) std::cout << n->value << ' ';
 	if (size > 0) std::cout << n->value;
 
+	std::cout << ']';
 	std::cout << std::endl;
+	std::cout << '[';
 
 	for (int i = 0; i < size - 1; ++i, n = n->left) std::cout << n->value << ' ';
 	if (size > 0) std::cout << n->value;
 
+	std::cout << ']';
 	std::cout << std::endl;
 }
 
