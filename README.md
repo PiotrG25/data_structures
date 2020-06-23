@@ -15,5 +15,7 @@ data_structures
 |AVLTree|O(log(n))|O(log(n))|O(log(n))|
 
 
+
+
 Note:
-DynamicArray realocates space each time it adds or removes an element
+DynamicArray reallocates  space each time it adds or removes an element
